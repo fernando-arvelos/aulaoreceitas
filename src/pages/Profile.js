@@ -5,6 +5,7 @@ function Profile() {
   const [userEmail, setUserEmail] = useState('');
   const [isSaved, setIsSaved] = useState(false);
   const [redirectToRecipes, setRedirectToRecipes] = useState(false);
+  const [redirectToFavorites, setRedirectToFavorites] = useState(false);
 
   useEffect(() => {
     const user = JSON.parse(localStorage.getItem('user'));
@@ -26,8 +27,16 @@ function Profile() {
     setRedirectToRecipes(true);
   };
 
+  const handleFavoriteRecipesClick = () => {
+    setRedirectToFavorites(true);
+  };
+
   if (redirectToRecipes) {
     return <Redirect to="/done-recipes" />;
+  }
+
+  if (redirectToFavorites) {
+    return <Redirect to="/favorite-recipes" />;
   }
 
   return (
@@ -66,7 +75,12 @@ function Profile() {
         >
           Done Recipes
         </button>
-        <button data-testid="profile-favorite-btn">Favorite Recipes</button>
+        <button
+          data-testid="profile-favorite-btn"
+          onClick={ handleFavoriteRecipesClick }
+        >
+          Favorite Recipes
+        </button>
         <button data-testid="profile-logout-btn">Logout</button>
       </div>
     </div>
