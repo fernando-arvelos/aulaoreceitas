@@ -1,13 +1,34 @@
 import React, { useState, useEffect } from 'react';
+import { Redirect } from 'react-router-dom';
 
 function Profile() {
   const [userEmail, setUserEmail] = useState('');
+  const [isSaved, setIsSaved] = useState(false);
+  const [redirectToRecipes, setRedirectToRecipes] = useState(false);
 
   useEffect(() => {
     const user = JSON.parse(localStorage.getItem('user'));
     const email = user ? user.email : '';
     setUserEmail(email);
   }, []);
+
+  const handleEmailChange = (event) => {
+    setUserEmail(event.target.value);
+  };
+
+  const handleSaveClick = () => {
+    const user = { email: userEmail };
+    localStorage.setItem('user', JSON.stringify(user));
+    setIsSaved(true);
+  };
+
+  const handleDoneRecipesClick = () => {
+    setRedirectToRecipes(true);
+  };
+
+  if (redirectToRecipes) {
+    return <Redirect to="/done-recipes" />;
+  }
 
   return (
     <div>
@@ -18,7 +39,7 @@ function Profile() {
         <input
           id="email"
           type="email"
-          value={ email }
+          value={ userEmail }
           onChange={ handleEmailChange }
         />
       </div>
@@ -39,7 +60,12 @@ function Profile() {
       </div>
 
       <div>
-        <button data-testid="profile-done-btn">Done Recipes</button>
+        <button
+          data-testid="profile-done-btn"
+          onClick={ handleDoneRecipesClick }
+        >
+          Done Recipes
+        </button>
         <button data-testid="profile-favorite-btn">Favorite Recipes</button>
         <button data-testid="profile-logout-btn">Logout</button>
       </div>
