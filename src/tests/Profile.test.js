@@ -1,42 +1,66 @@
 import React from 'react';
-import userEvent from '@testing-library/user-event';
-import { screen } from '@testing-library/react';
-import { createMemoryHistory } from 'history';
+import { render, screen, fireEvent } from '@testing-library/react';
 import { Router } from 'react-router-dom';
+import { createMemoryHistory } from 'history';
 import Profile from '../pages/Profile';
-import renderWithRouterAndRedux from './helpers/renderWithRouterAndRedux';
 
-describe('Teste a página de profile', () => {
-  test('Testa se os botões de perfil, receitas feitas, receitas favoritas e sair estão na tela.', () => {
-    renderWithRouterAndRedux(<Profile />);
-    screen.getAllByRole('button').forEach((button) => {
-      expect(button).toBeInTheDocument();
-    });
+describe('Testa a página de perfil', () => {
+  it('Deve renderizar o componente Profile', () => {
+    render(<Profile />);
+    expect(screen.getByText('Perfil')).toBeInTheDocument();
   });
 
-  test('local storage é limpo após o click', () => {
-    localStorage.setItem('user', JSON.stringify({
-      email: 'user@example.com' }));
-
-    renderWithRouterAndRedux(<Profile />);
-
-    const logoutButton = screen.getByTestId('profile-logout-btn');
-    userEvent.click(logoutButton);
-
-    expect(localStorage.getItem('userEmail')).toBeNull();
+  it('Deve atualizar o e-mail do usuário na alteração de entrada', () => {
+    render(<Profile />);
+    const emailInput = screen.getByLabelText('Email:');
+    fireEvent.change(emailInput, { target: { value: 'test@example.com' } });
+    expect(emailInput.value).toBe('test@example.com');
   });
 
-  test('Testa o redirecionamento para a tela de receitas feitas ao clicar no botão "Done Recipes"', () => {
+  it('Deve salvar o e-mail do usuário ao clicar no botão', () => {
+    render(<Profile />);
+    const emailInput = screen.getByLabelText('Email:');
+    const saveButton = screen.getByText('Salvar');
+    fireEvent.change(emailInput, { target: { value: 'test@example.com' } });
+    fireEvent.click(saveButton);
+    expect(screen.getByText('Email salvo com sucesso!')).toBeInTheDocument();
+  });
+
+  it('Deve redirecionar para receitas prontas no clique do botão Receitas prontas', () => {
     const history = createMemoryHistory();
-    const { getByTestId } = renderWithRouterAndRedux(
+    render(
       <Router history={ history }>
         <Profile />
       </Router>,
     );
-
-    const doneRecipesButton = getByTestId('profile-done-btn');
-    userEvent.click(doneRecipesButton);
-
+    const doneRecipesButton = screen.getByTestId('profile-done-btn');
+    fireEvent.click(doneRecipesButton);
     expect(history.location.pathname).toBe('/done-recipes');
+  });
+
+  it('Deve redirecionar para receitas favoritas no clique do botão Receitas favoritas', () => {
+    const history = createMemoryHistory();
+    render(
+      <Router history={ history }>
+        <Profile />
+      </Router>,
+    );
+    const favoriteRecipesButton = screen.getByTestId('profile-favorite-btn');
+    fireEvent.click(favoriteRecipesButton);
+    expect(history.location.pathname).toBe('/favorite-recipes');
+  });
+
+  it('Deve limpar localStorage e redirecionar para a página inicial ao clicar no botão Sair', () => {
+    const history = createMemoryHistory();
+    localStorage.setItem('user', JSON.stringify({ email: 'test@example.com' }));
+    render(
+      <Router history={ history }>
+        <Profile />
+      </Router>,
+    );
+    const logoutButton = screen.getByTestId('profile-logout-btn');
+    fireEvent.click(logoutButton);
+    expect(localStorage.getItem('user')).toBeNull();
+    expect(history.location.pathname).toBe('/');
   });
 });
