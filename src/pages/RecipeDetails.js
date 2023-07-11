@@ -1,10 +1,9 @@
 import React from 'react';
-import Footer from '../components/Footer';
 
 function RecipeDetails() {
   return (
     <div>
-      <Footer />
+      RecipeDetails
     </div>
   );
 }
