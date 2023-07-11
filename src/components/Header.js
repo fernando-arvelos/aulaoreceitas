@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
-import { useLocation } from 'react-router-dom/cjs/react-router-dom';
+import { useLocation, Link } from 'react-router-dom/cjs/react-router-dom';
 import profileIcon from '../images/profileIcon.svg';
 import searchIcon from '../images/searchIcon.svg';
 
@@ -34,11 +34,13 @@ function Header({ pageTitle }) {
   return (
     <header>
       <h1 data-testid="page-title">{pageTitle}</h1>
-      <img
-        data-testid="profile-top-btn"
-        src={ profileIcon }
-        alt="Profile"
-      />
+      <Link to="/profile">
+        <img
+          data-testid="profile-top-btn"
+          src={ profileIcon }
+          alt="Profile"
+        />
+      </Link>
       {renderSearchBtn && <img
         data-testid="search-top-btn"
         src={ searchIcon }
