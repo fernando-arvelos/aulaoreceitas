@@ -1,8 +1,12 @@
 import React from 'react';
+import Header from '../components/Header';
 
 function Drinks() {
   return (
-    <div>Drinks</div>
+    <>
+      <Header pageTitle="Drinks" />
+      <div>Drinks</div>
+    </>
   );
 }
 
