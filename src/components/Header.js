@@ -3,11 +3,13 @@ import PropTypes from 'prop-types';
 import { useLocation, Link } from 'react-router-dom/cjs/react-router-dom';
 import profileIcon from '../images/profileIcon.svg';
 import searchIcon from '../images/searchIcon.svg';
+import SearchBar from './SearchBar';
 
 function Header({ pageTitle }) {
   const [renderSearchBtn, setRenderSearchBtn] = useState(false);
+  const [renderSearchInput, setRenderSearchInput] = useState(false);
+
   const location = useLocation();
-  console.log(location.pathname);
 
   useEffect(() => {
     switch (location.pathname) {
@@ -41,11 +43,22 @@ function Header({ pageTitle }) {
           alt="Profile"
         />
       </Link>
-      {renderSearchBtn && <img
+      <button
+        type="button"
+        onClick={ () => setRenderSearchInput(!renderSearchInput) }
+      >
+        {
+          renderSearchBtn
+      && <img
         data-testid="search-top-btn"
         src={ searchIcon }
         alt="Search"
-      />}
+      />
+        }
+      </button>
+      { renderSearchInput && (
+        <SearchBar />
+      )}
     </header>
   );
 }
