@@ -1,11 +1,13 @@
 import React, { useState, useEffect } from 'react';
 import { Redirect } from 'react-router-dom';
+import { useHistory } from 'react-router-dom/cjs/react-router-dom.min';
 
 function Profile() {
   const [userEmail, setUserEmail] = useState('');
   const [isSaved, setIsSaved] = useState(false);
   const [redirectToRecipes, setRedirectToRecipes] = useState(false);
   const [redirectToFavorites, setRedirectToFavorites] = useState(false);
+  const history = useHistory();
 
   useEffect(() => {
     const user = JSON.parse(localStorage.getItem('user'));
@@ -38,6 +40,11 @@ function Profile() {
   if (redirectToFavorites) {
     return <Redirect to="/favorite-recipes" />;
   }
+
+  const handleLogoutClick = () => {
+    localStorage.clear();
+    history.push('/');
+  };
 
   return (
     <div>
@@ -81,7 +88,13 @@ function Profile() {
         >
           Favorite Recipes
         </button>
-        <button data-testid="profile-logout-btn">Logout</button>
+        <button
+          data-testid="profile-logout-btn"
+          onClick={ handleLogoutClick }
+        >
+          Logout
+
+        </button>
       </div>
     </div>
   );
