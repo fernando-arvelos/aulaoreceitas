@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 import drinkIcon from '../images/drinkIcon.svg';
 import mealIcon from '../images/mealIcon.svg';
 
@@ -8,18 +9,21 @@ function Footer() {
       data-testid="footer"
       className="footer"
     >
-      <img
-        data-testid="drinks-bottom-btn"
-        src={ drinkIcon }
-        alt="drinks"
+      <Link to="/drinks">
+        <img
+          data-testid="drinks-bottom-btn"
+          src={ drinkIcon }
+          alt="drinks"
+        />
+      </Link>
 
-      />
-
-      <img
-        data-testid="meals-bottom-btn"
-        src={ mealIcon }
-        alt="meals"
-      />
+      <Link to="/meals">
+        <img
+          data-testid="meals-bottom-btn"
+          src={ mealIcon }
+          alt="meals"
+        />
+      </Link>
     </footer>
   );
 }
