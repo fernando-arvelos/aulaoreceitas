@@ -1,10 +1,13 @@
 import React, { useState, useEffect } from 'react';
 import { Redirect } from 'react-router-dom';
 import { useHistory } from 'react-router-dom/cjs/react-router-dom.min';
+import Perfil from '../images/Perfil.svg';
+import Group from '../images/Group.svg';
+import favorite from '../images/favorite.svg';
+import logout from '../images/logout.svg';
 
 function Profile() {
   const [userEmail, setUserEmail] = useState('');
-  const [isSaved, setIsSaved] = useState(false);
   const [redirectToRecipes, setRedirectToRecipes] = useState(false);
   const [redirectToFavorites, setRedirectToFavorites] = useState(false);
   const history = useHistory();
@@ -14,16 +17,6 @@ function Profile() {
     const email = user ? user.email : '';
     setUserEmail(email);
   }, []);
-
-  const handleEmailChange = (event) => {
-    setUserEmail(event.target.value);
-  };
-
-  const handleSaveClick = () => {
-    const user = { email: userEmail };
-    localStorage.setItem('user', JSON.stringify(user));
-    setIsSaved(true);
-  };
 
   const handleDoneRecipesClick = () => {
     setRedirectToRecipes(true);
@@ -47,56 +40,63 @@ function Profile() {
   };
 
   return (
-    <div>
-      <h1>Perfil</h1>
+    <main
+      className="flex justify-center h-screen text-center"
+    >
+      <div className="flex flex-col items-center bg-gray-100 shadow-lg p-10">
+        <img src={ Perfil } alt="Perfil" className="w-7 h-7 mt-8" />
 
-      <div>
-        <label htmlFor="email">Email:</label>
-        <input
-          id="email"
-          type="email"
-          value={ userEmail }
-          onChange={ handleEmailChange }
-        />
-      </div>
+        <h1 className="text-2xl font-bold text-purple-900 mt-3 mb-8">PROFILE</h1>
 
-      <div>
-        <button onClick={ handleSaveClick }>Salvar</button>
-      </div>
+        <div className="mb-4">
+          <span
+            data-testid="profile-email"
+            className="text-[#1A1B1C] font-bold"
+          >
+            {userEmail}
 
-      {isSaved && (
-        <div>
-          <p>Email salvo com sucesso!</p>
+          </span>
         </div>
-      )}
 
-      <div>
-        <h2>Seu e-mail:</h2>
-        <span data-testid="profile-email">{userEmail}</span>
+        <div className="mb-4 flex flex-col items-start ml-14 mt-[61px]">
+          <div className="flex items-center justify-start mb-6">
+            <img src={ Group } alt="Group" className="w-[39px] mr-5" />
+            <button
+              data-testid="profile-done-btn"
+              onClick={ handleDoneRecipesClick }
+              className="bg-gray-100 hover:bg-yellow-300
+            text-[#797D86] rounded-lg text-base"
+            >
+              Done Recipes
+            </button>
+          </div>
+          <hr className="w-[290px] my-2 border-gray-400" />
+          <div className="flex items-center justify-start my-6">
+            <img src={ favorite } alt="favorite" className="w-[39px] mr-5" />
+            <button
+              data-testid="profile-favorite-btn"
+              onClick={ handleFavoriteRecipesClick }
+              className="bg-gray-100 hover:bg-yellow-300
+            text-[#797D86] rounded-lg text-base"
+            >
+              Favorite Recipes
+            </button>
+          </div>
+          <hr className="w-[290px] my-2 border-gray-400" />
+          <div className="flex items-center mt-6">
+            <img src={ logout } alt="favorite" className="w-[39px] mr-5" />
+            <button
+              data-testid="profile-logout-btn"
+              onClick={ handleLogoutClick }
+              className="bg-gray-100 hover:bg-red-300
+            text-[#797D86] rounded-lg text-base"
+            >
+              Logout
+            </button>
+          </div>
+        </div>
       </div>
-
-      <div>
-        <button
-          data-testid="profile-done-btn"
-          onClick={ handleDoneRecipesClick }
-        >
-          Done Recipes
-        </button>
-        <button
-          data-testid="profile-favorite-btn"
-          onClick={ handleFavoriteRecipesClick }
-        >
-          Favorite Recipes
-        </button>
-        <button
-          data-testid="profile-logout-btn"
-          onClick={ handleLogoutClick }
-        >
-          Logout
-
-        </button>
-      </div>
-    </div>
+    </main>
   );
 }
 

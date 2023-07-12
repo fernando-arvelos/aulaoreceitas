@@ -7,23 +7,7 @@ import Profile from '../pages/Profile';
 describe('Testa a página de perfil', () => {
   it('Deve renderizar o componente Profile', () => {
     render(<Profile />);
-    expect(screen.getByText('Perfil')).toBeInTheDocument();
-  });
-
-  it('Deve atualizar o e-mail do usuário na alteração de entrada', () => {
-    render(<Profile />);
-    const emailInput = screen.getByLabelText('Email:');
-    fireEvent.change(emailInput, { target: { value: 'test@example.com' } });
-    expect(emailInput.value).toBe('test@example.com');
-  });
-
-  it('Deve salvar o e-mail do usuário ao clicar no botão', () => {
-    render(<Profile />);
-    const emailInput = screen.getByLabelText('Email:');
-    const saveButton = screen.getByText('Salvar');
-    fireEvent.change(emailInput, { target: { value: 'test@example.com' } });
-    fireEvent.click(saveButton);
-    expect(screen.getByText('Email salvo com sucesso!')).toBeInTheDocument();
+    expect(screen.getByText('Profile')).toBeInTheDocument();
   });
 
   it('Deve redirecionar para receitas prontas no clique do botão Receitas prontas', () => {
