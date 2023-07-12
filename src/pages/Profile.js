@@ -41,24 +41,24 @@ function Profile() {
 
   return (
     <main
-      className="flex justify-center h-screen text-center"
+      className="flex justify-center h-screen"
     >
       <div className="flex flex-col items-center bg-gray-100 shadow-lg p-10">
         <img src={ Perfil } alt="Perfil" className="w-7 h-7 mt-8" />
 
-        <h1 className="text-2xl font-bold text-purple-900 mt-3 mb-8">PROFILE</h1>
+        <h1 className="text-2xl font-bold text-purple-900 mt-3 mb-8">Profile</h1>
 
         <div className="mb-4">
           <span
             data-testid="profile-email"
-            className="text-[#1A1B1C] font-bold"
+            className="text-[#1A1B1C] ml-[25px] font-bold"
           >
             {userEmail}
 
           </span>
         </div>
 
-        <div className="mb-4 flex flex-col items-start ml-14 mt-[61px]">
+        <div className="mb-4 flex flex-col items-start ml-14 mt-[61px] mr-10">
           <div className="flex items-center justify-start mb-6">
             <img src={ Group } alt="Group" className="w-[39px] mr-5" />
             <button
