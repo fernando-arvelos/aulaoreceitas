@@ -1,9 +1,19 @@
-import { FETCH_DRINKS_SUCCESS, FETCH_FAILURE, FETCH_MEALS_SUCCESS } from '../actions';
+import {
+  FETCH_CATEGORIES_FAILURE,
+  FETCH_DRINKS_SUCCESS,
+  FETCH_DRINK_CATEGORIES_SUCCESS,
+  FETCH_MEALS_SUCCESS,
+  FETCH_MEAL_CATEGORIES_SUCCESS,
+  FETCH_RECIPES_FAILURE,
+} from '../actions';
 
 const INITIAL_STATE = {
   meals: [],
   drinks: [],
-  error: '',
+  errorRecipes: '',
+  mealCategories: [],
+  drinkCategories: [],
+  errorCategories: '',
 };
 
 const recipesReducer = (state = INITIAL_STATE, action) => {
@@ -18,10 +28,25 @@ const recipesReducer = (state = INITIAL_STATE, action) => {
       ...state,
       drinks: action.payload,
     };
-  case FETCH_FAILURE:
+  case FETCH_RECIPES_FAILURE:
     return {
       ...state,
-      error: action.payload,
+      errorRecipes: action.payload,
+    };
+  case FETCH_MEAL_CATEGORIES_SUCCESS:
+    return {
+      ...state,
+      mealCategories: action.payload,
+    };
+  case FETCH_DRINK_CATEGORIES_SUCCESS:
+    return {
+      ...state,
+      drinkCategories: action.payload,
+    };
+  case FETCH_CATEGORIES_FAILURE:
+    return {
+      ...state,
+      errorCategories: action.payload,
     };
   default:
     return state;
