@@ -1,19 +1,21 @@
 import {
-  FETCH_CATEGORIES_FAILURE,
+  FETCH_FAILURE,
   FETCH_DRINKS_SUCCESS,
   FETCH_DRINK_CATEGORIES_SUCCESS,
+  FETCH_FILTERED_DRINKS_SUCCESS,
   FETCH_MEALS_SUCCESS,
   FETCH_MEAL_CATEGORIES_SUCCESS,
-  FETCH_RECIPES_FAILURE,
+  FETCH_FILTERED_MEALS_SUCCESS,
 } from '../actions';
 
 const INITIAL_STATE = {
   meals: [],
   drinks: [],
-  errorRecipes: '',
   mealCategories: [],
   drinkCategories: [],
-  errorCategories: '',
+  filteredMeals: [],
+  filteredDrinks: [],
+  error: '',
 };
 
 const recipesReducer = (state = INITIAL_STATE, action) => {
@@ -28,11 +30,6 @@ const recipesReducer = (state = INITIAL_STATE, action) => {
       ...state,
       drinks: action.payload,
     };
-  case FETCH_RECIPES_FAILURE:
-    return {
-      ...state,
-      errorRecipes: action.payload,
-    };
   case FETCH_MEAL_CATEGORIES_SUCCESS:
     return {
       ...state,
@@ -43,10 +40,20 @@ const recipesReducer = (state = INITIAL_STATE, action) => {
       ...state,
       drinkCategories: action.payload,
     };
-  case FETCH_CATEGORIES_FAILURE:
+  case FETCH_FILTERED_MEALS_SUCCESS:
     return {
       ...state,
-      errorCategories: action.payload,
+      filteredMeals: action.payload,
+    };
+  case FETCH_FILTERED_DRINKS_SUCCESS:
+    return {
+      ...state,
+      filteredDrinks: action.payload,
+    };
+  case FETCH_FAILURE:
+    return {
+      ...state,
+      error: action.payload,
     };
   default:
     return state;

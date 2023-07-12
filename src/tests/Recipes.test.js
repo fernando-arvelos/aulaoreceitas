@@ -1,8 +1,6 @@
 import React from 'react';
 import { screen } from '@testing-library/react';
 
-import Meals from '../components/Meals';
-import Drinks from '../components/Drinks';
 import renderWithRouterAndRedux from './helpers/renderWithRouterAndRedux';
 import Recipes from '../pages/Recipes';
 

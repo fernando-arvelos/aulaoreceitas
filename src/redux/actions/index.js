@@ -1,17 +1,26 @@
-import { fetchDrinks, fetchDrinkCategories } from '../../helpers/drinksAPI';
-import { fetchMeals, fetchMealCategories } from '../../helpers/mealsAPI';
+import {
+  fetchDrinks,
+  fetchDrinkCategories,
+  fetchDrinksCategoryFilter,
+} from '../../helpers/drinksAPI';
+import {
+  fetchMeals,
+  fetchMealCategories,
+  fetchMealsCategoryFilter,
+} from '../../helpers/mealsAPI';
 
 // ACTIONS TYPES
 export const FETCH_MEALS_SUCCESS = 'FETCH_MEALS_SUCCESS';
 export const FETCH_DRINKS_SUCCESS = 'FETCH_DRINKS_SUCCESS';
-export const FETCH_RECIPES_FAILURE = 'FETCH_RECIPES_FAILURE';
 export const FETCH_MEAL_CATEGORIES_SUCCESS = 'FETCH_MEAL_CATEGORIES_SUCCESS';
 export const FETCH_DRINK_CATEGORIES_SUCCESS = 'FETCH_DRINK_CATEGORIES_SUCCESS';
-export const FETCH_CATEGORIES_FAILURE = 'FETCH_CATEGORIES_FAILURE';
+export const FETCH_FILTERED_MEALS_SUCCESS = 'FETCH_FILTERED_MEALS_SUCCESS';
+export const FETCH_FILTERED_DRINKS_SUCCESS = 'FETCH_FILTERED_DRINKS_SUCCESS ';
+export const FETCH_FAILURE = 'FETCH_FAILURE';
 
 // ACTIONS CREATORS
-export const fetchRecipesFailed = (error) => ({
-  type: FETCH_RECIPES_FAILURE,
+export const fetchFailure = (error) => ({
+  type: FETCH_FAILURE,
   payload: error,
 });
 
@@ -32,7 +41,7 @@ export const getMealRecipes = () => async (dispatch) => {
     const filteredMeals = meals.slice(0, incomeLimit);
     dispatch(fetchMealsSuccessful(filteredMeals));
   } catch (error) {
-    dispatch(fetchRecipesFailed(error));
+    dispatch(fetchFailure(error.message));
   }
 };
 
@@ -43,14 +52,9 @@ export const getDrinkRecipes = () => async (dispatch) => {
     const filteredDrinks = drinks.slice(0, incomeLimit);
     dispatch(fetchDrinksSuccessful(filteredDrinks));
   } catch (error) {
-    dispatch(fetchRecipesFailed(error.message));
+    dispatch(fetchFailure(error.message));
   }
 };
-
-export const fetchCategoriesFailed = (error) => ({
-  type: FETCH_CATEGORIES_FAILURE,
-  payload: error,
-});
 
 export const fetchMealCategoriesSuccessful = (categories) => ({
   type: FETCH_MEAL_CATEGORIES_SUCCESS,
@@ -69,7 +73,7 @@ export const getMealCategories = () => async (dispatch) => {
     const filteredCategories = mealCategories.slice(0, categoryLimit);
     dispatch(fetchMealCategoriesSuccessful(filteredCategories));
   } catch (error) {
-    dispatch(fetchCategoriesFailed(error.message));
+    dispatch(fetchFailure(error.message));
   }
 };
 
@@ -80,6 +84,38 @@ export const getDrinkCategories = () => async (dispatch) => {
     const filteredCategories = drinkCategories.slice(0, categoryLimit);
     dispatch(fetchDrinkCategoriesSuccessful(filteredCategories));
   } catch (error) {
-    dispatch(fetchCategoriesFailed(error.message));
+    dispatch(fetchFailure(error.message));
+  }
+};
+
+export const fetchFilteredMealsSuccessful = (meals) => ({
+  type: FETCH_FILTERED_MEALS_SUCCESS,
+  payload: meals,
+});
+
+export const fetchFilteredDrinksSuccessful = (drinks) => ({
+  type: FETCH_FILTERED_DRINKS_SUCCESS,
+  payload: drinks,
+});
+
+export const getFilteredMeals = (category) => async (dispatch) => {
+  try {
+    const filteredMeals = await fetchMealsCategoryFilter(category);
+    const incomeLimit = 12;
+    const maxRecipes = filteredMeals.filter((meal, index) => index < incomeLimit);
+    dispatch(fetchFilteredMealsSuccessful(maxRecipes));
+  } catch (error) {
+    dispatch(fetchFailure(error.message));
+  }
+};
+
+export const getFilteredDrinks = (category) => async (dispatch) => {
+  try {
+    const filteredDrinks = await fetchDrinksCategoryFilter(category);
+    const incomeLimit = 12;
+    const maxRecipes = filteredDrinks.filter((drink, index) => index < incomeLimit);
+    dispatch(fetchFilteredDrinksSuccessful(maxRecipes));
+  } catch (error) {
+    dispatch(fetchFailure(error.message));
   }
 };
