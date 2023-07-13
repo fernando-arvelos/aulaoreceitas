@@ -1,14 +1,16 @@
 import React from 'react';
-import { Route, Switch } from 'react-router-dom/cjs/react-router-dom.min';
+import { useLocation } from 'react-router-dom/cjs/react-router-dom.min';
 import Meals from '../components/Meals';
 import Drinks from '../components/Drinks';
 
 function Recipes() {
+  const location = useLocation();
+  const currentPath = location.pathname;
+
   return (
-    <Switch>
-      <Route path="/meals" component={ Meals } />
-      <Route path="/drinks" component={ Drinks } />
-    </Switch>
+    currentPath === '/meals'
+      ? <Meals />
+      : <Drinks />
   );
 }
 
