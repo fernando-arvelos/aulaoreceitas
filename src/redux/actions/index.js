@@ -10,13 +10,15 @@ import {
 } from '../../helpers/mealsAPI';
 
 // ACTIONS TYPES
+export const FETCH_FAILURE = 'FETCH_FAILURE';
 export const FETCH_MEALS_SUCCESS = 'FETCH_MEALS_SUCCESS';
 export const FETCH_DRINKS_SUCCESS = 'FETCH_DRINKS_SUCCESS';
 export const FETCH_MEAL_CATEGORIES_SUCCESS = 'FETCH_MEAL_CATEGORIES_SUCCESS';
 export const FETCH_DRINK_CATEGORIES_SUCCESS = 'FETCH_DRINK_CATEGORIES_SUCCESS';
 export const FETCH_FILTERED_MEALS_SUCCESS = 'FETCH_FILTERED_MEALS_SUCCESS';
 export const FETCH_FILTERED_DRINKS_SUCCESS = 'FETCH_FILTERED_DRINKS_SUCCESS ';
-export const FETCH_FAILURE = 'FETCH_FAILURE';
+export const CHANGE_FILTER_STATUS = 'CHANGE_FILTER_STATUS';
+export const SET_LAST_CLICKED_FILTER = 'SET_LAST_CLICKED_FILTER';
 
 // ACTIONS CREATORS
 export const fetchFailure = (error) => ({
@@ -119,3 +121,13 @@ export const getFilteredDrinks = (category) => async (dispatch) => {
     dispatch(fetchFailure(error.message));
   }
 };
+
+export const changeFilterStatus = (status) => ({
+  type: CHANGE_FILTER_STATUS,
+  payload: status,
+});
+
+export const setLastClickedFilter = (filter) => ({
+  type: SET_LAST_CLICKED_FILTER,
+  payload: filter,
+});

@@ -6,20 +6,29 @@ import {
   FETCH_MEALS_SUCCESS,
   FETCH_MEAL_CATEGORIES_SUCCESS,
   FETCH_FILTERED_MEALS_SUCCESS,
+  CHANGE_FILTER_STATUS,
+  SET_LAST_CLICKED_FILTER,
 } from '../actions';
 
 const INITIAL_STATE = {
+  error: '',
   meals: [],
   drinks: [],
   mealCategories: [],
   drinkCategories: [],
   filteredMeals: [],
   filteredDrinks: [],
-  error: '',
+  filterStatus: false,
+  lastClickedFilter: '',
 };
 
 const recipesReducer = (state = INITIAL_STATE, action) => {
   switch (action.type) {
+  case FETCH_FAILURE:
+    return {
+      ...state,
+      error: action.payload,
+    };
   case FETCH_MEALS_SUCCESS:
     return {
       ...state,
@@ -50,10 +59,15 @@ const recipesReducer = (state = INITIAL_STATE, action) => {
       ...state,
       filteredDrinks: action.payload,
     };
-  case FETCH_FAILURE:
+  case CHANGE_FILTER_STATUS:
     return {
       ...state,
-      error: action.payload,
+      filterStatus: action.payload,
+    };
+  case SET_LAST_CLICKED_FILTER:
+    return {
+      ...state,
+      lastClickedFilter: action.payload,
     };
   default:
     return state;

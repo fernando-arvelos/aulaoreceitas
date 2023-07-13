@@ -33,7 +33,7 @@ RecipeCard.propTypes = {
   recipeImage: PropTypes.string.isRequired,
   recipeName: PropTypes.string.isRequired,
   index: PropTypes.number.isRequired,
-  recipeId: PropTypes.number.isRequired,
+  recipeId: PropTypes.string.isRequired,
 };
 
 export default RecipeCard;
