@@ -75,7 +75,7 @@ function Login() {
               type="password"
               placeholder="Senha"
               data-testid="password-input"
-              className="input-login my-2 "
+              className="input-login my-2"
               onChange={ handleChange }
             />
 
