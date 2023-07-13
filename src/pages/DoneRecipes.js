@@ -3,6 +3,7 @@ import shareIcon from '../images/shareIcon.svg';
 
 function DoneRecipes() {
   const [doneRecipes, setDoneRecipes] = useState([]);
+  const [copyMessage, setCopyMessage] = useState('');
 
   useEffect(() => {
     const storedRecipes = localStorage.getItem('doneRecipes');
@@ -10,6 +11,17 @@ function DoneRecipes() {
       setDoneRecipes(JSON.parse(storedRecipes));
     }
   }, []);
+
+  const copyUrlToClipboard = () => {
+    const url = 'http://localhost:3000/meals/52771';
+    navigator.clipboard.writeText(url)
+      .then(() => {
+        setCopyMessage('Link copied!');
+      })
+      .catch((error) => {
+        console.log('Error copying to clipboard:', error);
+      });
+  };
 
   return (
     <div>
@@ -36,7 +48,12 @@ function DoneRecipes() {
             )}
             <h3 data-testid={ `${index}-horizontal-name` }>{recipe.name}</h3>
             <p data-testid={ `${index}-horizontal-done-date` }>{recipe.doneDate}</p>
-            <button src={ shareIcon } data-testid={ `${index}-horizontal-share-btn` }>
+            <button
+              src={ shareIcon }
+              alt="Share"
+              data-testid={ `${index}-horizontal-share-btn` }
+              onClick={ () => copyUrlToClipboard() }
+            >
               <img src={ shareIcon } alt="Share" />
             </button>
 
@@ -51,6 +68,8 @@ function DoneRecipes() {
           </div>
         ))}
       </div>
+
+      {copyMessage && <p>{copyMessage}</p>}
     </div>
   );
 }
