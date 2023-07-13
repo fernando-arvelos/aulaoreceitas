@@ -13,7 +13,7 @@ function Meals() {
   useEffect(() => {
     dispatch(getMealRecipes());
     dispatch(getMealCategories());
-  }, []);
+  }, [dispatch]);
 
   return (
     <div>
