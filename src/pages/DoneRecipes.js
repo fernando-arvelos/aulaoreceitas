@@ -25,13 +25,19 @@ function DoneRecipes() {
               alt={ recipe.name }
               data-testid={ `${index}-horizontal-image` }
             />
-            <p data-testid={ `${index}-horizontal-top-text` }>
-              {`${recipe.nationality} - ${recipe.category}`}
-            </p>
+            {recipe.type === 'meal' ? (
+              <p data-testid={ `${index}-horizontal-top-text` }>
+                {`${recipe.nationality} - ${recipe.category}`}
+              </p>
+            ) : (
+              <p data-testid={ `${index}-horizontal-top-text` }>
+                {recipe.alcoholic ? 'Alcoholic' : 'Non-Alcoholic'}
+              </p>
+            )}
             <h3 data-testid={ `${index}-horizontal-name` }>{recipe.name}</h3>
             <p data-testid={ `${index}-horizontal-done-date` }>{recipe.doneDate}</p>
             <button src={ shareIcon } data-testid={ `${index}-horizontal-share-btn` }>
-              <img src={ shareIcon } alt="share" />
+              <img src={ shareIcon } alt="Share" />
             </button>
 
             {recipe.tags.slice(0, 2).map((tag, tagIndex) => (
