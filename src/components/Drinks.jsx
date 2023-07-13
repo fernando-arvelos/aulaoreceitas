@@ -13,7 +13,7 @@ function Drinks() {
   useEffect(() => {
     dispatch(getDrinkRecipes());
     dispatch(getDrinkCategories());
-  }, []);
+  }, [dispatch]);
 
   return (
     <div>
