@@ -45,19 +45,27 @@ function RecipeDetails() {
   }, [recipeDetails]);
 
   return (
-    recipeDetails.length > 0
-    && <DetailsCard
-      recipeImg={ currentPath.includes('meals')
-        ? recipeDetails[0].strMealThumb : recipeDetails[0].strDrinkThumb }
-      recipeTitle={ currentPath.includes('meals')
-        ? recipeDetails[0].strMeal : recipeDetails[0].strDrink }
-      recipeCategory={ currentPath.includes('meals')
-        ? recipeDetails[0].strCategory : recipeDetails[0].strAlcoholic }
-      recipeIngredients={ ingredients }
-      recipeMeasures={ measures }
-      recipeInstructions={ recipeDetails[0].strInstructions }
-      recipeVideo={ currentPath.includes('meals') ? recipeDetails[0].strYoutube : '' }
-    />
+    <div>
+      {recipeDetails.length > 0
+      && <DetailsCard
+        recipeImg={ currentPath.includes('meals')
+          ? recipeDetails[0].strMealThumb : recipeDetails[0].strDrinkThumb }
+        recipeTitle={ currentPath.includes('meals')
+          ? recipeDetails[0].strMeal : recipeDetails[0].strDrink }
+        recipeCategory={ currentPath.includes('meals')
+          ? recipeDetails[0].strCategory : recipeDetails[0].strAlcoholic }
+        recipeIngredients={ ingredients }
+        recipeMeasures={ measures }
+        recipeInstructions={ recipeDetails[0].strInstructions }
+        recipeVideo={ currentPath.includes('meals') ? recipeDetails[0].strYoutube : '' }
+      />}
+      <button
+        data-testid="start-recipe-btn"
+        className="fixed bottom-0"
+      >
+        START RECIPE
+      </button>
+    </div>
   );
 }
 
