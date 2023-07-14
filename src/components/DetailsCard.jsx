@@ -1,6 +1,9 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { useLocation } from 'react-router-dom';
+import { useDispatch, useSelector } from 'react-redux';
+import { getDrinkRecipes, getMealRecipes } from '../redux/actions';
+import RecommendationsCard from './RecommendationsCard';
 
 function DetailsCard({
   recipeImg,
@@ -13,6 +16,14 @@ function DetailsCard({
 }) {
   const location = useLocation();
   const currentPath = location.pathname;
+  const dispatch = useDispatch();
+  const meals = useSelector((state) => state.recipesReducer.meals);
+  const drinks = useSelector((state) => state.recipesReducer.drinks);
+
+  useEffect(() => {
+    if (currentPath.includes('meals')) dispatch(getDrinkRecipes());
+    if (currentPath.includes('drinks')) dispatch(getMealRecipes());
+  }, []);
 
   const embedId = () => {
     if (recipeVideo) {
@@ -55,6 +66,7 @@ function DetailsCard({
           data-testid="video"
         />
       )}
+      <RecommendationsCard recipes={ currentPath.includes('meals') ? drinks : meals } />
     </div>
   );
 }
