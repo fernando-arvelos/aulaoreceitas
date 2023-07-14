@@ -21,14 +21,14 @@ function RecipeDetails() {
           const isValueValid = value !== null && value !== '';
           return isIngredient && isValueValid;
         },
-      ).map(([key, value]) => value);
+      ).map(([, value]) => value);
       const filterMeasures = Object.entries(recipeDetails[0]).filter(
         ([key, value]) => {
           const isMeasure = key.includes('strMeasure');
           const isValueValid = value !== null && value !== ' ';
           return isMeasure && isValueValid;
         },
-      ).map(([key, value]) => value);
+      ).map(([, value]) => value);
 
       setIngredients(filteredIngredients);
       setMeasures(filterMeasures);
