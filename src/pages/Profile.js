@@ -5,6 +5,7 @@ import Perfil from '../images/Perfil.svg';
 import Group from '../images/Group.svg';
 import favorite from '../images/favorite.svg';
 import logout from '../images/logout.svg';
+import Footer from '../components/Footer';
 
 function Profile() {
   const [userEmail, setUserEmail] = useState('');
@@ -41,14 +42,14 @@ function Profile() {
 
   return (
     <main
-      className="flex justify-center h-screen"
+      className="flex flex-col justify-center h-screen"
     >
-      <div className="flex flex-col items-center bg-gray-100 shadow-lg p-10">
+      <div className="flex flex-col items-center shadow-lg p-10">
         <img src={ Perfil } alt="Perfil" className="w-7 h-7 mt-8" />
 
         <h1 className="text-2xl font-bold text-purple-900 mt-3 mb-8">Profile</h1>
 
-        <div className="mb-4">
+        <div className="mb-4 ">
           <span
             data-testid="profile-email"
             className="text-[#1A1B1C] ml-[25px] font-bold"
@@ -96,6 +97,7 @@ function Profile() {
           </div>
         </div>
       </div>
+      <Footer />
     </main>
   );
 }
