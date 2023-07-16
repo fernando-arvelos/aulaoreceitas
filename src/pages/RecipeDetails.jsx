@@ -12,6 +12,7 @@ function RecipeDetails() {
   const recipeDetails = useSelector((state) => state.recipeDetailsReducer.recipeDetails);
   const [ingredients, setIngredients] = useState([]);
   const [measures, setMeasures] = useState([]);
+  const [recipeMade, setRecipeMade] = useState();
 
   const filterIngredientsAndMeasures = () => {
     if (recipeDetails.length > 0) {
@@ -38,6 +39,11 @@ function RecipeDetails() {
   useEffect(() => {
     if (currentPath.includes('meals')) dispatch(getMealDetails(id));
     if (currentPath.includes('drinks')) dispatch(getDrinkDetails(id));
+
+    // const doneRecipes = JSON.parse(localStorage.getItem('doneRecipes'));
+    const doneRecipes = [{ id: 52771 }, { id: 178319 }];
+    const verifyDoneRecipe = doneRecipes.some((recipe) => recipe.id === id);
+    setRecipeMade(verifyDoneRecipe);
   }, []);
 
   useEffect(() => {
@@ -59,12 +65,15 @@ function RecipeDetails() {
         recipeInstructions={ recipeDetails[0].strInstructions }
         recipeVideo={ currentPath.includes('meals') ? recipeDetails[0].strYoutube : '' }
       />}
-      <button
-        data-testid="start-recipe-btn"
-        className="fixed bottom-0"
-      >
-        START RECIPE
-      </button>
+      { !recipeMade
+      && (
+        <button
+          data-testid="start-recipe-btn"
+          className="fixed bottom-0"
+        >
+          START RECIPE
+        </button>
+      )}
     </div>
   );
 }
