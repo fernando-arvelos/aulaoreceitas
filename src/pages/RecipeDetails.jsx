@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { useLocation, useParams } from 'react-router-dom/cjs/react-router-dom.min';
+import { Link, useLocation, useParams } from 'react-router-dom/cjs/react-router-dom.min';
 import { getMealDetails, getDrinkDetails } from '../redux/actions';
 import DetailsCard from '../components/DetailsCard';
 
@@ -85,14 +85,23 @@ function RecipeDetails() {
       />}
       { !recipeMade
       && (
-        <button
-          data-testid="start-recipe-btn"
-          className="fixed bottom-0"
+        <Link
+          to={
+            currentPath.includes('/meals')
+              ? `/meals/${id}/in-progress`
+              : `/drinks/${id}/in-progress`
+          }
         >
-          { recipeInProgress
-            ? 'Continue Recipe'
-            : 'Start Recipe'}
-        </button>
+          <button
+            data-testid="start-recipe-btn"
+            className="fixed bottom-0"
+          >
+            {recipeInProgress
+              ? 'Continue Recipe'
+              : 'Start Recipe'}
+          </button>
+        </Link>
+
       )}
     </div>
   );
