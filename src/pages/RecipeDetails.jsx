@@ -13,6 +13,7 @@ function RecipeDetails() {
   const [ingredients, setIngredients] = useState([]);
   const [measures, setMeasures] = useState([]);
   const [recipeMade, setRecipeMade] = useState();
+  const [recipeInProgress, setRecipeInProgress] = useState();
 
   const filterIngredientsAndMeasures = () => {
     if (recipeDetails.length > 0) {
@@ -44,6 +45,23 @@ function RecipeDetails() {
     const doneRecipes = [{ id: 52771 }, { id: 178319 }];
     const verifyDoneRecipe = doneRecipes.some((recipe) => recipe.id === id);
     setRecipeMade(verifyDoneRecipe);
+
+    const typeOfRecipe = currentPath.match(/\/([^/]+)/)[1];
+
+    // const inProgressRecipes = JSON.parse(localStorage.getItem('inProgressRecipes'));
+    const inProgressRecipes = {
+      drinks: {
+        178319: ['teste'],
+      },
+      meals: {
+        52771: ['teste'],
+      },
+    };
+    const idsInProgress = Object.keys(inProgressRecipes[typeOfRecipe]);
+    const verifyIdsInProgress = idsInProgress.some(
+      (inProgressId) => id === inProgressId,
+    );
+    setRecipeInProgress(verifyIdsInProgress);
   }, []);
 
   useEffect(() => {
@@ -71,7 +89,9 @@ function RecipeDetails() {
           data-testid="start-recipe-btn"
           className="fixed bottom-0"
         >
-          START RECIPE
+          { recipeInProgress
+            ? 'Continue Recipe'
+            : 'Start Recipe'}
         </button>
       )}
     </div>
