@@ -3,6 +3,8 @@ import { useDispatch, useSelector } from 'react-redux';
 import { Link, useLocation, useParams } from 'react-router-dom/cjs/react-router-dom.min';
 import { getMealDetails, getDrinkDetails } from '../redux/actions';
 import DetailsCard from '../components/DetailsCard';
+import shareIcon from '../images/shareIcon.svg';
+import likeIcon from '../images/whiteHeartIcon.svg';
 
 function RecipeDetails() {
   const { id } = useParams();
@@ -70,6 +72,14 @@ function RecipeDetails() {
 
   return (
     <div>
+      <div>
+        <button data-testid="share-btn">
+          <img src={ shareIcon } alt="share" />
+        </button>
+        <button data-testid="favorite-btn">
+          <img src={ likeIcon } alt="like" />
+        </button>
+      </div>
       {recipeDetails.length > 0
       && <DetailsCard
         recipeImg={ currentPath.includes('meals')
