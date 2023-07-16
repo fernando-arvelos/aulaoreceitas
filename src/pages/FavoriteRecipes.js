@@ -1,4 +1,6 @@
 import React, { useState, useEffect } from 'react';
+import shareIcon from '../images/shareIcon.svg';
+import blackHeartIcon from '../images/blackHeartIcon.svg';
 
 function FavoriteRecipes() {
   const [favoriteRecipes, setFavoriteRecipes] = useState([]);
@@ -25,10 +27,25 @@ function FavoriteRecipes() {
             alt={ `${recipe.name} recipe` }
             data-testid={ `${index}-horizontal-image` }
           />
-          <p data-testid={ `${index}-horizontal-top-text` }>{recipe.category}</p>
+          <p
+            data-testid={ `${index}-horizontal-top-text` }
+          >
+            {`${recipe.nationality} - ${recipe.category}`}
+
+          </p>
           <h3 data-testid={ `${index}-horizontal-name` }>{recipe.name}</h3>
-          <button data-testid={ `${index}-horizontal-share-btn` }>Share</button>
-          <button data-testid={ `${index}-horizontal-favorite-btn` }>Favorite</button>
+          <button
+            src={ shareIcon }
+            data-testid={ `${index}-horizontal-share-btn` }
+          >
+            <img src={ shareIcon } alt="Share" />
+          </button>
+          <button
+            src={ blackHeartIcon }
+            data-testid={ `${index}-horizontal-favorite-btn` }
+          >
+            <img src={ blackHeartIcon } alt="Unfavorite" />
+          </button>
         </div>
       ))}
     </div>
