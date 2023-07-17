@@ -13,7 +13,7 @@ function MealsInProgress() {
   const recipeId = pathname.split('/')[2];
   const mealsFiltred = meals.filter((meal) => meal.idMeal === recipeId);
 
-  console.log(mealsFiltred);
+  // console.log(mealsFiltred);
   return (
     <main>
       <div>
