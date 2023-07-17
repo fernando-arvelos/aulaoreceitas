@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { Link } from 'react-router-dom';
 import shareIcon from '../images/shareIcon.svg';
 import blackHeartIcon from '../images/blackHeartIcon.svg';
 
@@ -81,11 +82,13 @@ function FavoriteRecipes() {
 
       {filteredRecipes.map((recipe, index) => (
         <div key={ index }>
-          <img
-            src={ recipe.image }
-            alt={ `${recipe.name} recipe` }
-            data-testid={ `${index}-horizontal-image` }
-          />
+          <Link to={ `/meals/${recipe.id}` }>
+            <img
+              src={ recipe.image }
+              alt={ `${recipe.name} recipe` }
+              data-testid={ `${index}-horizontal-image` }
+            />
+          </Link>
           {recipe.type === 'meal' ? (
             <p
               data-testid={ `${index}-horizontal-top-text` }
@@ -100,7 +103,9 @@ function FavoriteRecipes() {
                 : 'Non-Alcoholic'}
             </p>
           )}
-          <h3 data-testid={ `${index}-horizontal-name` }>{recipe.name}</h3>
+          <Link to={ `/drinks/${recipe.id}` }>
+            <h3 data-testid={ `${index}-horizontal-name` }>{recipe.name}</h3>
+          </Link>
           <button
             src={ shareIcon }
             data-testid={ `${index}-horizontal-share-btn` }
