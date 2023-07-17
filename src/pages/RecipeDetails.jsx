@@ -3,13 +3,13 @@ import { useDispatch, useSelector } from 'react-redux';
 import { Link, useLocation, useParams } from 'react-router-dom/cjs/react-router-dom.min';
 import { getMealDetails, getDrinkDetails } from '../redux/actions';
 import DetailsCard from '../components/DetailsCard';
-import shareIcon from '../images/shareIcon.svg';
-import likeIcon from '../images/whiteHeartIcon.svg';
+import HeaderRecipe from '../components/HeaderRecipe';
 
 function RecipeDetails() {
   const { id } = useParams();
   const location = useLocation();
   const currentPath = location.pathname;
+  const typeOfRecipe = currentPath.match(/\/([^/]+)/)[1];
   const dispatch = useDispatch();
   const recipeDetails = useSelector((state) => state.recipeDetailsReducer.recipeDetails);
   const [ingredients, setIngredients] = useState([]);
@@ -48,8 +48,6 @@ function RecipeDetails() {
     const verifyDoneRecipe = doneRecipes.some((recipe) => recipe.id === id);
     setRecipeMade(verifyDoneRecipe);
 
-    const typeOfRecipe = currentPath.match(/\/([^/]+)/)[1];
-
     // const inProgressRecipes = JSON.parse(localStorage.getItem('inProgressRecipes'));
     const inProgressRecipes = {
       drinks: {
@@ -72,14 +70,7 @@ function RecipeDetails() {
 
   return (
     <div>
-      <div>
-        <button data-testid="share-btn">
-          <img src={ shareIcon } alt="share" />
-        </button>
-        <button data-testid="favorite-btn">
-          <img src={ likeIcon } alt="like" />
-        </button>
-      </div>
+      <HeaderRecipe />
       {recipeDetails.length > 0
       && <DetailsCard
         recipeImg={ currentPath.includes('meals')
