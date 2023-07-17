@@ -5,6 +5,8 @@ import blackHeartIcon from '../images/blackHeartIcon.svg';
 function FavoriteRecipes() {
   const [favoriteRecipes, setFavoriteRecipes] = useState([]);
   const [copyMessage, setCopyMessage] = useState('');
+  const [filter, setFilter] = useState('all');
+  const [filteredRecipes, setFilteredRecipes] = useState([]);
 
   useEffect(() => {
     const favoriteRecipesData = localStorage.getItem('favoriteRecipes');
@@ -12,6 +14,18 @@ function FavoriteRecipes() {
       setFavoriteRecipes(JSON.parse(favoriteRecipesData));
     }
   }, []);
+
+  useEffect(() => {
+    if (filter === 'all') {
+      setFilteredRecipes(favoriteRecipes);
+    } else if (filter === 'meals') {
+      const meals = favoriteRecipes.filter((recipe) => recipe.type === 'meal');
+      setFilteredRecipes(meals);
+    } else if (filter === 'drinks') {
+      const drinks = favoriteRecipes.filter((recipe) => recipe.type === 'drink');
+      setFilteredRecipes(drinks);
+    }
+  }, [favoriteRecipes, filter]);
 
   const copyUrlToClipboard = () => {
     const url = 'http://localhost:3000/meals/52771';
@@ -35,15 +49,37 @@ function FavoriteRecipes() {
     removeFromFavorites(recipeId);
   };
 
+  const handleFilterClick = (filterType) => {
+    setFilter(filterType);
+  };
+
   return (
     <div>
       <h1>Favorite Recipes</h1>
 
-      <button data-testid="filter-by-all-btn">All</button>
-      <button data-testid="filter-by-meal-btn">Meals</button>
-      <button data-testid="filter-by-drink-btn">Drinks</button>
+      <button
+        data-testid="filter-by-all-btn"
+        onClick={ () => handleFilterClick('all') }
+      >
+        All
 
-      {favoriteRecipes.map((recipe, index) => (
+      </button>
+      <button
+        data-testid="filter-by-meal-btn"
+        onClick={ () => handleFilterClick('meals') }
+      >
+        Meals
+
+      </button>
+      <button
+        data-testid="filter-by-drink-btn"
+        onClick={ () => handleFilterClick('drinks') }
+      >
+        Drinks
+
+      </button>
+
+      {filteredRecipes.map((recipe, index) => (
         <div key={ index }>
           <img
             src={ recipe.image }
