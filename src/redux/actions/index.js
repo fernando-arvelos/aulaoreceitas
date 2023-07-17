@@ -23,6 +23,7 @@ export const CHANGE_FILTER_STATUS = 'CHANGE_FILTER_STATUS';
 export const SET_LAST_CLICKED_FILTER = 'SET_LAST_CLICKED_FILTER';
 export const FETCH_DRINK_DETAILS_SUCCESS = 'FETCH_DRINK_DETAILS_SUCCESS';
 export const FETCH_MEAL_DETAILS_SUCCESS = 'FETCH_MEAL_DETAILS_SUCCESS';
+export const SET_SHARE_TEXT_STATUS = 'SET_SHARE_TEXT_STATUS';
 
 // ACTIONS CREATORS
 export const fetchFailure = (error) => ({
@@ -164,3 +165,8 @@ export const getDrinkDetails = (id) => async (dispatch) => {
     dispatch(fetchFailure(error.message));
   }
 };
+
+export const setShareTextStatus = (status) => ({
+  type: SET_SHARE_TEXT_STATUS,
+  payload: status,
+});

@@ -16,6 +16,9 @@ function RecipeDetails() {
   const [measures, setMeasures] = useState([]);
   const [recipeMade, setRecipeMade] = useState();
   const [recipeInProgress, setRecipeInProgress] = useState();
+  const shareTextStatus = useSelector(
+    (state) => state.recipeDetailsReducer.shareTextStatus,
+  );
 
   const filterIngredientsAndMeasures = () => {
     if (recipeDetails.length > 0) {
@@ -103,6 +106,9 @@ function RecipeDetails() {
           </button>
         </Link>
 
+      )}
+      { shareTextStatus && (
+        <p>Link copied!</p>
       )}
     </div>
   );

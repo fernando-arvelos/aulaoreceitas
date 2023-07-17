@@ -1,12 +1,15 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useLocation, useParams } from 'react-router-dom/cjs/react-router-dom.min';
+import copy from 'clipboard-copy';
 
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import shareIcon from '../images/shareIcon.svg';
 import whiteHeartIcon from '../images/whiteHeartIcon.svg';
 import blackHeartIcon from '../images/blackHeartIcon.svg';
+import { setShareTextStatus } from '../redux/actions';
 
 function HeaderRecipe() {
+  const dispatch = useDispatch();
   const { id } = useParams();
   const location = useLocation();
   const currentPath = location.pathname;
@@ -14,9 +17,33 @@ function HeaderRecipe() {
   const typeOfRecipe = currentPath.match(/\/([^/]+)/)[1].replace(/s$/, '');
   const localStorageFavorites = localStorage.getItem('favoriteRecipes');
   const favoriteRecipes = localStorageFavorites ? JSON.parse(localStorageFavorites) : [];
+  const shareTextStatus = useSelector(
+    (state) => state.recipeDetailsReducer.shareTextStatus,
+  );
   const [isFavorite, setIsFavorite] = useState(favoriteRecipes.some((
     favorite,
   ) => favorite.id === id));
+
+  useEffect(() => {
+    let timer;
+
+    const displayTime = 5000;
+    if (shareTextStatus) {
+      timer = setInterval(() => {
+        dispatch(setShareTextStatus(false));
+      }, displayTime);
+    }
+
+    return () => {
+      clearInterval(timer);
+    };
+  }, [shareTextStatus]);
+
+  const handleShare = () => {
+    const url = window.location.href;
+    copy(url);
+    dispatch(setShareTextStatus(true));
+  };
 
   const handleFavorite = () => {
     if (isFavorite) {
@@ -41,13 +68,19 @@ function HeaderRecipe() {
 
   return (
     <div>
-      <button data-testid="share-btn">
-        <img src={ shareIcon } alt="share" />
+      <button onClick={ handleShare }>
+        <img
+          src={ shareIcon }
+          alt="share"
+          data-testid="share-btn"
+        />
       </button>
       <button onClick={ handleFavorite }>
         <img
           src={ isFavorite ? blackHeartIcon : whiteHeartIcon }
           alt="like"
+          width="26"
+          height="26"
           data-testid="favorite-btn"
         />
       </button>
