@@ -25,6 +25,16 @@ function FavoriteRecipes() {
       });
   };
 
+  const removeFromFavorites = (recipeId) => {
+    const updatedFavorites = favoriteRecipes.filter((recipe) => recipe.id !== recipeId);
+    setFavoriteRecipes(updatedFavorites);
+    localStorage.setItem('favoriteRecipes', JSON.stringify(updatedFavorites));
+  };
+
+  const handleUnfavoriteClick = (recipeId) => {
+    removeFromFavorites(recipeId);
+  };
+
   return (
     <div>
       <h1>Favorite Recipes</h1>
@@ -65,6 +75,7 @@ function FavoriteRecipes() {
           <button
             src={ blackHeartIcon }
             data-testid={ `${index}-horizontal-favorite-btn` }
+            onClick={ () => handleUnfavoriteClick(recipe.id) }
           >
             <img src={ blackHeartIcon } alt="Unfavorite" />
           </button>
