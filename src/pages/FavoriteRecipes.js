@@ -4,6 +4,7 @@ import blackHeartIcon from '../images/blackHeartIcon.svg';
 
 function FavoriteRecipes() {
   const [favoriteRecipes, setFavoriteRecipes] = useState([]);
+  const [copyMessage, setCopyMessage] = useState('');
 
   useEffect(() => {
     const favoriteRecipesData = localStorage.getItem('favoriteRecipes');
@@ -11,6 +12,18 @@ function FavoriteRecipes() {
       setFavoriteRecipes(JSON.parse(favoriteRecipesData));
     }
   }, []);
+
+  const copyUrlToClipboard = () => {
+    const url = 'http://localhost:3000/meals/52771';
+    navigator.clipboard
+      .writeText(url)
+      .then(() => {
+        setCopyMessage('Link copied!');
+      })
+      .catch((error) => {
+        console.log('Error copying to clipboard:', error);
+      });
+  };
 
   return (
     <div>
@@ -45,6 +58,7 @@ function FavoriteRecipes() {
           <button
             src={ shareIcon }
             data-testid={ `${index}-horizontal-share-btn` }
+            onClick={ copyUrlToClipboard }
           >
             <img src={ shareIcon } alt="Share" />
           </button>
@@ -56,6 +70,7 @@ function FavoriteRecipes() {
           </button>
         </div>
       ))}
+      {copyMessage && <p>{copyMessage}</p>}
     </div>
   );
 }
