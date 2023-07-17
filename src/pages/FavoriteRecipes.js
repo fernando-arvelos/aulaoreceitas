@@ -27,12 +27,20 @@ function FavoriteRecipes() {
             alt={ `${recipe.name} recipe` }
             data-testid={ `${index}-horizontal-image` }
           />
-          <p
-            data-testid={ `${index}-horizontal-top-text` }
-          >
-            {`${recipe.nationality} - ${recipe.category}`}
-
-          </p>
+          {recipe.type === 'meal' ? (
+            <p
+              data-testid={ `${index}-horizontal-top-text` }
+            >
+              {`${recipe.nationality} - ${recipe.category}`}
+            </p>
+          ) : (
+            <p
+              data-testid={ `${index}-horizontal-top-text` }
+            >
+              {recipe.alcoholic ? 'Alcoholic'
+                : 'Non-Alcoholic'}
+            </p>
+          )}
           <h3 data-testid={ `${index}-horizontal-name` }>{recipe.name}</h3>
           <button
             src={ shareIcon }
