@@ -7,6 +7,7 @@
 }
 
 @layer components {
+  /* Login */
   .bg-img {
     @apply bg-cover min-h-screen bg-[url('./images/background.png')];
   }
@@ -20,6 +21,11 @@
   }
 
   .button-login {
-    @apply bg-[#FCC436] text-white rounded-md h-10 w-[276px] text-center font-bold tracking-[0.42px] text-sm uppercase;
+    @apply bg-[#FCC436] text-white rounded-md h-10 w-[276px] text-center font-bold tracking-[0.42px] text-sm uppercase disabled:bg-gray-500;
+  }
+
+  /* Footer */
+  .footer {
+    @apply flex justify-between items-center bg-[#41197F] h-[52px] px-9 fixed bottom-0 w-full;
   }
 }

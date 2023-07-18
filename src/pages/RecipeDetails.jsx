@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Link, useLocation, useParams } from 'react-router-dom/cjs/react-router-dom.min';
 import { getMealDetails, getDrinkDetails } from '../redux/actions';
@@ -20,7 +20,7 @@ function RecipeDetails() {
     (state) => state.recipeDetailsReducer.shareTextStatus,
   );
 
-  const filterIngredientsAndMeasures = () => {
+  const filterIngredientsAndMeasures = useCallback(() => {
     if (recipeDetails.length > 0) {
       const filteredIngredients = Object.entries(recipeDetails[0]).filter(
         ([key, value]) => {
@@ -40,11 +40,12 @@ function RecipeDetails() {
       setIngredients(filteredIngredients);
       setMeasures(filterMeasures);
     }
-  };
+  }, [recipeDetails]);
 
   useEffect(() => {
     if (currentPath.includes('meals')) dispatch(getMealDetails(id));
     if (currentPath.includes('drinks')) dispatch(getDrinkDetails(id));
+<<<<<<< HEAD
 
     // const doneRecipes = JSON.parse(localStorage.getItem('doneRecipes'));
     const doneRecipes = [{ id: 52771 }, { id: 178319 }];
@@ -66,10 +67,13 @@ function RecipeDetails() {
     );
     setRecipeInProgress(verifyIdsInProgress);
   }, []);
+=======
+  }, [currentPath, dispatch, id]);
+>>>>>>> origin/main-group-14-tela-de-detalhes
 
   useEffect(() => {
     filterIngredientsAndMeasures();
-  }, [recipeDetails]);
+  }, [filterIngredientsAndMeasures, recipeDetails]);
 
   return (
     <div>

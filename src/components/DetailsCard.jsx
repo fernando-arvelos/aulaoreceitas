@@ -23,7 +23,7 @@ function DetailsCard({
   useEffect(() => {
     if (currentPath.includes('meals')) dispatch(getDrinkRecipes());
     if (currentPath.includes('drinks')) dispatch(getMealRecipes());
-  }, []);
+  }, [currentPath, dispatch]);
 
   const embedId = () => {
     if (recipeVideo) {
