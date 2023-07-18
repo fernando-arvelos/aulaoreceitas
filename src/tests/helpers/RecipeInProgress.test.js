@@ -6,11 +6,7 @@ describe('Testa o componente de Footer', () => {
   it('Testa se ocorre a renderização correta do componente Footer', () => {
     renderWithRouterAndRedux(<RecipeInProgress />);
     const img = screen.getByTestId('recipe-photo');
-    // const drinksBtn = screen.getByTestId('drinks-bottom-btn');
-    // const mealsBtn = screen.getByTestId('meals-bottom-btn');
 
     expect(img).toBeInTheDocument();
-    // expect(drinksBtn).toBeInTheDocument();
-    // expect(mealsBtn).toBeInTheDocument();
   });
 });
