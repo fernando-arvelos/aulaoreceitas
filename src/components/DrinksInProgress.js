@@ -1,7 +1,7 @@
 // import React, { useEffect, useState } from 'react';
 // import { useSelector } from 'react-redux';
 import { useHistory } from 'react-router-dom';
-import mockDrinks from './mockDrinks';
+import mockDrinks from '../mocks/mockDrinks';
 import ListIngredientsDrinks from './ListIngredientsDrinks';
 
 function MealsInProgress() {

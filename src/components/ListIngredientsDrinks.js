@@ -1,11 +1,12 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 // import { useSelector } from 'react-redux';
 import { useHistory } from 'react-router-dom';
-import mockDrinks from './mockDrinks';
+import mockDrinks from '../mocks/mockDrinks';
 
 function ListIngredientsDrinks() {
   // const drinks = useSelector((state) => state.recipesReducer.drinks);
   const drinks = mockDrinks;
+  const [checkedIngredients, setCheckedIngredients] = useState([]);
 
   const history = useHistory();
   const { pathname } = history.location;
@@ -26,7 +27,36 @@ function ListIngredientsDrinks() {
   };
 
   const ingredients = getIngredients();
-  console.log(ingredients);
+
+  useEffect(() => {
+    const savedIngredients = localStorage.getItem('checkedIngredients');
+    if (savedIngredients) {
+      setCheckedIngredients(JSON.parse(savedIngredients));
+    }
+  }, []);
+
+  const saveInLocalStorage = (event) => {
+    const { name, checked } = event.target;
+    const updatedIngredients = checked
+      ? [...checkedIngredients, name]
+      : checkedIngredients.filter((ingredient) => ingredient !== name);
+
+    setCheckedIngredients(updatedIngredients);
+    localStorage.setItem('checkedIngredients', JSON.stringify(updatedIngredients));
+  };
+
+  const crossOutText = (event) => {
+    const label = event.target.parentNode;
+
+    if (event.target.checked) {
+      label.style.textDecoration = 'line-through';
+    } else {
+      label.style.textDecoration = 'none';
+    }
+    saveInLocalStorage(event);
+  };
+
+  const isChecked = (ingredient) => checkedIngredients.includes(ingredient);
 
   return (
     <div>
@@ -42,10 +72,18 @@ function ListIngredientsDrinks() {
               name={ ingredient }
               id={ ingredient }
               key={ index }
+              onChange={ (event) => crossOutText(event) }
+              checked={ isChecked(ingredient) }
             />
-            <p>
+            <span
+              style={ {
+                textDecoration: isChecked(ingredient)
+                  ? 'line-through'
+                  : 'none',
+              } }
+            >
               {ingredient}
-            </p>
+            </span>
           </label>
         ))}
       </div>
