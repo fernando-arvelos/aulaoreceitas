@@ -3,6 +3,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { getMealCategories, getMealRecipes } from '../redux/actions';
 import RecipeCard from './RecipeCard';
 import Filters from './Filters';
+import Header from './Header';
 
 function Meals() {
   const dispatch = useDispatch();
@@ -17,7 +18,10 @@ function Meals() {
 
   return (
     <div>
-      <Filters />
+      <Header pageTitle="Meals" />
+      <div>
+        <Filters />
+      </div>
       <div>
         {
           filterStatus

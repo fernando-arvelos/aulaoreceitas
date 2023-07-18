@@ -3,6 +3,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { getDrinkCategories, getDrinkRecipes } from '../redux/actions';
 import RecipeCard from './RecipeCard';
 import Filters from './Filters';
+import Header from './Header';
 
 function Drinks() {
   const dispatch = useDispatch();
@@ -17,6 +18,7 @@ function Drinks() {
 
   return (
     <div>
+      <Header pageTitle="Drinks" />
       <div>
         <Filters />
       </div>
@@ -35,8 +37,8 @@ function Drinks() {
                     recipeId={ idDrink }
                   />
                 );
-              }))
-            : (
+              })
+            ) : (
               drinks.map((drink, index) => {
                 const { strDrinkThumb, strDrink, idDrink } = drink;
                 return (
@@ -52,7 +54,6 @@ function Drinks() {
             )
         }
       </div>
-
     </div>
   );
 }

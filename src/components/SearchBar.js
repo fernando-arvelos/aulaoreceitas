@@ -1,21 +1,21 @@
-import React, { useState, useEffect } from 'react';
-import { useLocation } from 'react-router-dom/cjs/react-router-dom.min';
+import React, { useState,
+} from 'react';
+import { useLocation, useHistory } from 'react-router-dom/cjs/react-router-dom.min';
+import { useDispatch } from 'react-redux';
 import { fetchMealsByIngredients, fetchMealsByName,
   fetchMealsByFirstLetter, fetchDrinksByIngredients,
   fetchDrinksByName, fetchDrinksByFirstLetter } from '../services/Api';
+import { fetchFilteredMealsSuccessful,
+  fetchFilteredDrinksSuccessful,
+  changeFilterStatus } from '../redux/actions';
 
 function SearchBar() {
   const location = useLocation();
   const [radioOption, setRadioOption] = useState('');
   const [filterInput, setFilterInput] = useState('');
-  const [recipes, setRecipes] = useState([]);
   const [myLocation] = useState(location.pathname);
-
-  useEffect(() => {
-    if (recipes === null) {
-      global.alert('Sorry, we haven\'t found any recipes for these filters.'); // não conhecia o conceito dessa barra antes do apostrofo por causa do single quote
-    }
-  }, [recipes]);
+  const history = useHistory();
+  const dispatch = useDispatch();
 
   const mealHandleChange = async () => {
     let apiResponse;
@@ -31,7 +31,17 @@ function SearchBar() {
       break;
     default:
     }
-    setRecipes(apiResponse);
+    try {
+      if (apiResponse.length === 1) {
+        const { idMeal } = apiResponse[0];
+        history.push(`/meals/${idMeal}`);
+      } else {
+        dispatch(changeFilterStatus(true));
+        dispatch(fetchFilteredMealsSuccessful(apiResponse));
+      }
+    } catch (error) {
+      global.alert('Sorry, we haven\'t found any recipes for these filters.');
+    }
   };
 
   const drinkHandleChange = async () => {
@@ -48,7 +58,17 @@ function SearchBar() {
       break;
     default:
     }
-    setRecipes(apiResponse);
+    try {
+      if (apiResponse.length === 1) {
+        const { idDrink } = apiResponse[0];
+        history.push(`/drinks/${idDrink}`);
+      } else {
+        dispatch(changeFilterStatus(true));
+        dispatch(fetchFilteredDrinksSuccessful(apiResponse));
+      }
+    } catch (error) {
+      global.alert('Sorry, we haven\'t found any recipes for these filters.');
+    }
   };
 
   return (
@@ -96,7 +116,8 @@ function SearchBar() {
       <button
         type="button"
         data-testid="exec-search-btn"
-        onClick={ myLocation === '/meals' ? mealHandleChange : drinkHandleChange }
+        // onClick={ myLocation === '/meals' ? mealHandleChange : drinkHandleChange }
+        onClick={ myLocation === '/drinks' ? drinkHandleChange : mealHandleChange }
       >
         Search
       </button>
