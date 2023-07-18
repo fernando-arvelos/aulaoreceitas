@@ -12,7 +12,6 @@ const INITIAL_STATE = {
 };
 
 const recipeDetailsReducer = (state = INITIAL_STATE, action) => {
-  console.log(action);
   switch (action.type) {
   case FETCH_FAILURE:
     return {

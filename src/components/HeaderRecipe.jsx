@@ -68,22 +68,30 @@ function HeaderRecipe() {
 
   return (
     <div>
-      <button onClick={ handleShare }>
-        <img
-          src={ shareIcon }
-          alt="share"
-          data-testid="share-btn"
-        />
-      </button>
-      <button onClick={ handleFavorite }>
-        <img
-          src={ isFavorite ? blackHeartIcon : whiteHeartIcon }
-          alt="like"
-          width="26"
-          height="26"
-          data-testid="favorite-btn"
-        />
-      </button>
+      { recipeDetails[0]
+      && (
+        <div>
+          <p>{ recipeDetails[0].strCategory }</p>
+        </div>
+      )}
+      <div>
+        <button onClick={ handleShare }>
+          <img
+            src={ shareIcon }
+            alt="share"
+            data-testid="share-btn"
+          />
+        </button>
+        <button onClick={ handleFavorite }>
+          <img
+            src={ isFavorite ? blackHeartIcon : whiteHeartIcon }
+            alt="like"
+            width="26"
+            height="26"
+            data-testid="favorite-btn"
+          />
+        </button>
+      </div>
     </div>
   );
 }
