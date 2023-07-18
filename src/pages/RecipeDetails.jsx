@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useLocation, useParams } from 'react-router-dom/cjs/react-router-dom.min';
 import { getMealDetails, getDrinkDetails } from '../redux/actions';
@@ -13,7 +13,7 @@ function RecipeDetails() {
   const [ingredients, setIngredients] = useState([]);
   const [measures, setMeasures] = useState([]);
 
-  const filterIngredientsAndMeasures = () => {
+  const filterIngredientsAndMeasures = useCallback(() => {
     if (recipeDetails.length > 0) {
       const filteredIngredients = Object.entries(recipeDetails[0]).filter(
         ([key, value]) => {
@@ -33,16 +33,16 @@ function RecipeDetails() {
       setIngredients(filteredIngredients);
       setMeasures(filterMeasures);
     }
-  };
+  }, [recipeDetails]);
 
   useEffect(() => {
     if (currentPath.includes('meals')) dispatch(getMealDetails(id));
     if (currentPath.includes('drinks')) dispatch(getDrinkDetails(id));
-  }, []);
+  }, [currentPath, dispatch, id]);
 
   useEffect(() => {
     filterIngredientsAndMeasures();
-  }, [recipeDetails]);
+  }, [filterIngredientsAndMeasures, recipeDetails]);
 
   return (
     recipeDetails.length > 0
