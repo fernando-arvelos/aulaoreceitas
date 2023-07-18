@@ -1,11 +1,12 @@
+import { arrayOf, shape, string } from 'prop-types';
 import React, { useEffect, useState } from 'react';
 // import { useSelector } from 'react-redux';
 import { useHistory } from 'react-router-dom';
-import mockDrinks from '../mocks/mockDrinks';
+// import mockDrinks from '../mocks/mockDrinks';
 
-function ListIngredientsDrinks() {
+function ListIngredientsDrinks({ drinks }) {
   // const drinks = useSelector((state) => state.recipesReducer.drinks);
-  const drinks = mockDrinks;
+  // const drinks = mockDrinks;
   const [checkedIngredients, setCheckedIngredients] = useState([]);
 
   const history = useHistory();
@@ -92,3 +93,13 @@ function ListIngredientsDrinks() {
 }
 
 export default ListIngredientsDrinks;
+
+ListIngredientsDrinks.propTypes = {
+  drinks: arrayOf(
+    shape({
+      idDrink: string.isRequired,
+      strIngredient1: string,
+      strIngredient2: string,
+    }),
+  ).isRequired,
+};
