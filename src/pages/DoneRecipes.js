@@ -22,7 +22,8 @@ function DoneRecipes() {
         setCopyMessage('Link copied!');
       })
       .catch((error) => {
-        console.log('Error copying to clipboard:', error);
+        setCopyMessage('Failed to copy!');
+        console.log(error);
       });
   };
 

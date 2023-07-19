@@ -24,6 +24,15 @@ describe('DoneRecipes', () => {
       doneDate: '2023-07-14',
       tags: ['Tag 4', 'Tag 5', 'Tag 6'],
     },
+    {
+      id: 3,
+      name: 'Receita 3',
+      image: 'receita3.jpg',
+      type: 'drink',
+      alcoholic: false,
+      doneDate: '2023-07-13',
+      tags: ['Tag 7', 'Tag 8', 'Tag 9'],
+    },
   ];
 
   beforeEach(() => {
@@ -34,14 +43,17 @@ describe('DoneRecipes', () => {
     localStorage.clear();
   });
 
+  const btnAllFilter = 'filter-by-all-btn';
+  const btnMealFilter = 'filter-by-meal-btn';
+
   test('renderiza os botões de filtro', () => {
     render(
       <Router>
         <DoneRecipes />
       </Router>,
     );
-    const filterByAllBtn = screen.getByTestId('filter-by-all-btn');
-    const filterByMealBtn = screen.getByTestId('filter-by-meal-btn');
+    const filterByAllBtn = screen.getByTestId(btnAllFilter);
+    const filterByMealBtn = screen.getByTestId(btnMealFilter);
     const filterByDrinkBtn = screen.getByTestId('filter-by-drink-btn');
 
     expect(filterByAllBtn).toBeInTheDocument();
@@ -56,10 +68,10 @@ describe('DoneRecipes', () => {
       </Router>,
     );
 
-    const filterByMealBtn = screen.getByTestId('filter-by-meal-btn');
+    const filterByMealBtn = screen.getByTestId(btnMealFilter);
     fireEvent.click(filterByMealBtn);
 
-    const filterByAllBtn = screen.getByTestId('filter-by-all-btn');
+    const filterByAllBtn = screen.getByTestId(btnAllFilter);
     fireEvent.click(filterByAllBtn);
 
     const recipeCards = screen.getAllByTestId(/-horizontal-image$/);
@@ -73,7 +85,7 @@ describe('DoneRecipes', () => {
       </Router>,
     );
 
-    const filterByMealBtn = screen.getByTestId('filter-by-meal-btn');
+    const filterByMealBtn = screen.getByTestId(btnMealFilter);
     fireEvent.click(filterByMealBtn);
 
     const recipeCards = screen.getAllByTestId(/-horizontal-image$/);
@@ -113,7 +125,7 @@ describe('DoneRecipes', () => {
         <DoneRecipes />
       </Router>,
     );
-    const filterByMealBtn = screen.getByTestId('filter-by-meal-btn');
+    const filterByMealBtn = screen.getByTestId(btnMealFilter);
     fireEvent.click(filterByMealBtn);
     const recipeCards = screen.getAllByTestId(/-horizontal-image$/);
 
@@ -127,9 +139,9 @@ describe('DoneRecipes', () => {
         <DoneRecipes />
       </Router>,
     );
-    const filterByMealBtn = screen.getByTestId('filter-by-meal-btn');
+    const filterByMealBtn = screen.getByTestId(btnMealFilter);
     fireEvent.click(filterByMealBtn);
-    const filterByAllBtn = screen.getByTestId('filter-by-all-btn');
+    const filterByAllBtn = screen.getByTestId(btnAllFilter);
     fireEvent.click(filterByAllBtn);
     const recipeCards = screen.getAllByTestId(/-horizontal-image$/);
 
@@ -206,7 +218,7 @@ describe('DoneRecipes', () => {
     );
     const recipeTags = screen.getAllByTestId((_, element) => element.tagName.toLowerCase() === 'span' && element.textContent.startsWith('Tag'));
 
-    expect(recipeTags.length).toBe(4);
+    expect(recipeTags.length).toBe(6);
   });
 
   test('exibe a data de conclusão de cada receita', () => {
@@ -246,5 +258,15 @@ describe('DoneRecipes', () => {
       ? `/meals/${doneRecipesData[0].id}`
       : `/drinks/${doneRecipesData[0].id}`;
     expect(window.location.pathname).toBe(rotaEsperada);
+  });
+
+  test('Se a bebida for não alcolica, exibir Non-Alcoholic na tela', () => {
+    render(
+      <Router>
+        <DoneRecipes />
+      </Router>,
+    );
+    const nonAlcoholic = screen.getByText('Non-Alcoholic');
+    expect(nonAlcoholic).toBeInTheDocument();
   });
 });
