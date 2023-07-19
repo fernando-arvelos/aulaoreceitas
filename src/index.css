@@ -7,25 +7,8 @@
 }
 
 @layer components {
-  /* Login */
-  .bg-img {
-    @apply bg-cover min-h-screen bg-[url('./images/background.png')];
-  }
-
-  .title-login {
-    @apply text-[#41197F] text-center font-medium tracking-[3.3px] text-xl italic uppercase mb-5;
-  }
-
-  .input-login {
-    @apply border-[#41197F] border-[1px] rounded-md h-10 w-[276px] pl-4 focus:outline-none text-[#41197F] placeholder:text-[#42197f7f];
-  }
-
-  .button-login {
-    @apply bg-[#FCC436] text-white rounded-md h-10 w-[276px] text-center font-bold tracking-[0.42px] text-sm uppercase disabled:bg-gray-500;
-  }
-
   /* Footer */
   .footer {
-    @apply flex justify-between items-center bg-[#41197F] h-[52px] px-9 fixed bottom-0 w-full;
+    @apply flex justify-between items-center bg-red h-[52px] px-9 fixed bottom-0 w-full;
   }
 }
