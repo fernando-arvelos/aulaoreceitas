@@ -3,6 +3,8 @@ import { render, screen, fireEvent } from '@testing-library/react';
 import { BrowserRouter as Router } from 'react-router-dom';
 import FavoriteRecipes from '../pages/FavoriteRecipes';
 
+const imgCocktail = 'cocktail.jpg';
+
 describe('FavoriteRecipes', () => {
   beforeEach(() => {
     localStorage.clear();
@@ -35,7 +37,7 @@ describe('FavoriteRecipes', () => {
   test('exibe as receitas filtradas corretamente', () => {
     const favoriteRecipes = [
       { id: 1, type: 'meal', name: 'Spaghetti', image: 'spaghetti.jpg' },
-      { id: 2, type: 'drink', name: 'Cocktail', image: 'cocktail.jpg' },
+      { id: 2, type: 'drink', name: 'Cocktail', image: imgCocktail },
       { id: 3, type: 'meal', name: 'Pizza', image: 'pizza.jpg' },
     ];
     localStorage.setItem('favoriteRecipes', JSON.stringify(favoriteRecipes));
@@ -87,7 +89,7 @@ describe('FavoriteRecipes', () => {
     const recipeId = 1;
     const favoriteRecipes = [
       { id: recipeId, type: 'meal', name: 'Spaghetti', image: 'spaghetti.jpg' },
-      { id: 2, type: 'drink', name: 'Cocktail', image: 'cocktail.jpg' },
+      { id: 2, type: 'drink', name: 'Cocktail', image: imgCocktail },
     ];
     localStorage.setItem('favoriteRecipes', JSON.stringify(favoriteRecipes));
 
@@ -99,6 +101,6 @@ describe('FavoriteRecipes', () => {
     const unfavoriteButton = screen.getByTestId('0-horizontal-favorite-btn');
     fireEvent.click(unfavoriteButton);
 
-    expect(localStorage.getItem('favoriteRecipes')).toEqual(JSON.stringify([{ id: 2, type: 'drink', name: 'Cocktail', image: 'cocktail.jpg' }]));
+    expect(localStorage.getItem('favoriteRecipes')).toEqual(JSON.stringify([{ id: 2, type: 'drink', name: 'Cocktail', image: imgCocktail }]));
   });
 });
