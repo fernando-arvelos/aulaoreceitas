@@ -17,6 +17,12 @@ function SearchBar() {
   const history = useHistory();
   const dispatch = useDispatch();
 
+  // useEffect(() => {
+  //   if (recipes === null) {
+  //     global.alert('Sorry, we haven\'t found any recipes for these filters.');
+  //   }
+  // }, [recipes]);
+
   const mealHandleChange = async () => {
     let apiResponse;
     switch (radioOption) {
