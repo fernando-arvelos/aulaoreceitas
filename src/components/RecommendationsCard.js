@@ -3,7 +3,6 @@ import PropTypes from 'prop-types';
 import Slider from 'react-slick';
 import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
-import { arrayOf, shape, string } from 'prop-types';
 
 function RecommendationsCard({ recipes }) {
   const settings = {
@@ -40,7 +39,6 @@ function RecommendationsCard({ recipes }) {
   );
 }
 
-<<<<<<< HEAD
 const drinkPropType = PropTypes.shape({
   idDrink: PropTypes.string.isRequired,
   strDrink: PropTypes.string.isRequired,
@@ -56,17 +54,6 @@ const mealPropType = PropTypes.shape({
 RecommendationsCard.propTypes = {
   recipes: PropTypes.arrayOf(PropTypes.oneOfType([drinkPropType, mealPropType]))
     .isRequired,
-=======
-RecommendationsCard.propTypes = {
-  recipes: arrayOf(
-    shape({
-      strDrink: string,
-      strMeal: string,
-      strDrinkThumb: string,
-      strMealThumb: string,
-    }),
-  ).isRequired,
->>>>>>> origin/main-group-14-tela-de-detalhes
 };
 
 export default RecommendationsCard;

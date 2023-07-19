@@ -1,83 +1,118 @@
 import React from 'react';
 import { screen, waitFor } from '@testing-library/react';
 
+import userEvent from '@testing-library/user-event';
+import { act } from 'react-dom/test-utils';
 import renderWithRouterAndRedux from './helpers/renderWithRouterAndRedux';
 import Recipes from '../pages/Recipes';
-import { recipesReducerMeals } from './mocks/recipesMealsStore';
-import { meals } from '../../cypress/mocks/meals';
-import { drinks } from '../../cypress/mocks/drinks';
-import drinkCategories from '../../cypress/mocks/drinkCategories';
-import App from '../App';
-import { fetch } from '../../cypress/mocks/fetch';
-
-const initialState = {
-  exampleReducer: {},
-  recipesReducer: {
-    error: '',
-    meals: [],
-    drinks: [],
-    mealCategories: [],
-    drinkCategories: [],
-    filteredMeals: [],
-    filteredDrinks: [],
-    filterStatus: false,
-    lastClickedFilter: '',
-  },
-  recipeDetailsReducer: {
-    error: '',
-    recipeDetails: [],
-    shareTextStatus: false,
-  },
-};
+import fetch from '../../cypress/mocks/fetch';
 
 describe('Testa a página de receitas', () => {
   it('testa se as 6 categorias de Meals são renderizadas', async () => {
-    const { history } = renderWithRouterAndRedux(<Recipes />);
-    history.push('/meals');
+    global.fetch = fetch;
+    renderWithRouterAndRedux(<Recipes />, '/meals');
 
-    const filterCards = await screen.findAllByTestId(/-category-filter/);
-
+    const filterCards = await screen.findAllByTestId(/-category-filter/i);
     expect(filterCards.length).toBe(6);
+    const mealCards = await screen.findAllByTestId(/-recipe-card/);
+    expect(mealCards.length).toBe(12);
+
+    act(() => {
+      userEvent.click(filterCards[2]);
+    });
+
+    await waitFor(async () => {
+      const breakfastCards = await screen.findAllByTestId(/-recipe-card/);
+      expect(breakfastCards.length).toBe(7);
+    });
+
+    act(() => {
+      userEvent.click(filterCards[2]);
+    });
+    await waitFor(async () => {
+      expect(mealCards.length).toBe(12);
+    });
+
+    act(() => {
+      userEvent.click(filterCards[2]);
+    });
+    act(() => {
+      userEvent.click(filterCards[0]);
+    });
+    await waitFor(async () => {
+      expect(mealCards.length).toBe(12);
+    });
   });
 
   it('testa se as 6 categorias de Drinks são renderizadas', async () => {
-    const { history } = renderWithRouterAndRedux(<Recipes />);
-    history.push('/drinks');
-
-    const filterCards = await screen.findAllByTestId(/-category-filter/);
-
-    expect(filterCards.length).toBe(6);
-  });
-
-  it.only('testa se as 12 primeiras receita de Meals são renderizadas', async () => {
-    // jest.spyOn(global, 'fetch').mockResolvedValue({
-    //   json: jest.fn().mockResolvedValue(meals),
-    // });
     global.fetch = fetch;
-    renderWithRouterAndRedux(<App />, '/meals');
+    renderWithRouterAndRedux(<Recipes />, '/drinks');
 
-    // await waitFor(async () => {
-    const singleCard = await screen.findByTestId('0-recipe-card');
-    expect(singleCard).toBeInTheDocument();
-    // });
+    const filterCards = await screen.findAllByTestId(/-category-filter/i);
+    expect(filterCards.length).toBe(6);
+    const drinkCards = await screen.findAllByTestId(/-recipe-card/);
+    expect(drinkCards.length).toBe(12);
 
-    expect(singleCard).toBeInTheDocument();
-    expect(recipeCards.length).toBe(12);
+    act(() => {
+      userEvent.click(filterCards[5]);
+    });
+
+    await waitFor(async () => {
+      const cocoaCards = await screen.findAllByTestId(/-recipe-card/);
+      expect(cocoaCards.length).toBe(9);
+    });
+
+    act(() => {
+      userEvent.click(filterCards[5]);
+    });
+    await waitFor(async () => {
+      expect(drinkCards.length).toBe(12);
+    });
+
+    act(() => {
+      userEvent.click(filterCards[5]);
+    });
+    act(() => {
+      userEvent.click(filterCards[0]);
+    });
+    await waitFor(async () => {
+      expect(drinkCards.length).toBe(12);
+    });
   });
 
-  test('testa se as 12 primeiras receitas de Drinks são renderizadas', async () => {
-    jest.spyOn(global, 'fetch').mockResolvedValue({
-      json: jest.fn()
-        .mockResolvedValueOnce(drinks)
-        .mockResolvedValue(drinkCategories),
+  it('testa se as 12 primeiras receita de Meals são renderizadas', async () => {
+    global.fetch = fetch;
+    const { history } = renderWithRouterAndRedux(<Recipes />, '/meals');
+
+    const filterCards = await screen.findAllByTestId(/-category-filter/i);
+    expect(filterCards.length).toBe(6);
+    const mealCards = await screen.findAllByTestId(/-recipe-card/);
+    expect(mealCards.length).toBe(12);
+
+    act(() => {
+      userEvent.click(mealCards[0]);
     });
-    const { history } = renderWithRouterAndRedux(<Recipes />);
-    history.push('/drinks');
 
-    const singleCard = await screen.findByTestId('0-recipe-card');
+    await waitFor(async () => {
+      expect(history.location.pathname).toBe('/meals/52977');
+    });
+  });
+
+  it('testa se as 12 primeiras receitas de Drinks são renderizadas', async () => {
+    global.fetch = fetch;
+    const { history } = renderWithRouterAndRedux(<Recipes />, '/drinks');
+
+    const filterCards = await screen.findAllByTestId(/-category-filter/i);
+    expect(filterCards.length).toBe(6);
     const drinkCards = await screen.findAllByTestId(/-recipe-card/);
-
-    expect(singleCard).toBeInTheDocument();
     expect(drinkCards.length).toBe(12);
+
+    act(() => {
+      userEvent.click(drinkCards[0]);
+    });
+
+    await waitFor(async () => {
+      expect(history.location.pathname).toBe('/drinks/15997');
+    });
   });
 });
