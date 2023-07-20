@@ -4,8 +4,7 @@ import { getMealCategories, getMealRecipes } from '../redux/actions';
 import RecipeCard from './RecipeCard';
 import Filters from './Filters';
 import Header from './Header';
-import '../styles/meals.css';
-import mealIcon from '../images/mealIcon.svg';
+import '../index.css';
 
 function Meals() {
   const dispatch = useDispatch();
@@ -20,13 +19,8 @@ function Meals() {
 
   return (
     <main className="flex-col-center px-3">
-      <div>
+      <div className="flex-col-center mb-6 md:mb-12">
         <Header pageTitle="Meals" />
-
-        <div className="flex-col-center pt-8 mb-5">
-          <img src={ mealIcon } alt="meal icon" />
-        </div>
-        <h1 className="title-meals">MEALS</h1>
       </div>
 
       <div>

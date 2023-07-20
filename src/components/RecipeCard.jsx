@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { useHistory, useLocation } from 'react-router-dom/cjs/react-router-dom.min';
-import '../styles/recipeCard.css';
+import '../index.css';
 
 function RecipeCard({ recipeImage, recipeName, index, recipeId }) {
   const history = useHistory();
@@ -25,7 +25,12 @@ function RecipeCard({ recipeImage, recipeName, index, recipeId }) {
           data-testid={ `${index}-card-img` }
           className="img-recipe-card"
         />
-        <h3 data-testid={ `${index}-card-name` }>{ recipeName }</h3>
+        <h3
+          data-testid={ `${index}-card-name` }
+          className="my-1 text-gray"
+        >
+          { recipeName }
+        </h3>
       </button>
     </div>
   );

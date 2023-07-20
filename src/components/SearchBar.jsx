@@ -8,6 +8,7 @@ import { fetchMealsByIngredients, fetchMealsByName,
 import { fetchFilteredMealsSuccessful,
   fetchFilteredDrinksSuccessful,
   changeFilterStatus } from '../redux/actions';
+import '../index.css';
 
 function SearchBar() {
   const location = useLocation();
@@ -16,12 +17,6 @@ function SearchBar() {
   const [myLocation] = useState(location.pathname);
   const history = useHistory();
   const dispatch = useDispatch();
-
-  // useEffect(() => {
-  //   if (recipes === null) {
-  //     global.alert('Sorry, we haven\'t found any recipes for these filters.');
-  //   }
-  // }, [recipes]);
 
   const mealHandleChange = async () => {
     let apiResponse;
@@ -78,55 +73,77 @@ function SearchBar() {
   };
 
   return (
-    <section>
-      <input
-        data-testid="search-input"
-        type="text"
-        placeholder="Search recipes"
-        value={ filterInput }
-        onChange={ ({ target }) => setFilterInput(target.value) }
-      />
-      <label htmlFor="Ingredient">
+    <section className="flex justify-center">
+
+      <div className="container-search">
         <input
-          id="Ingredient"
-          type="radio"
-          name="radioFilter"
-          value="ingredient"
-          data-testid="ingredient-search-radio"
-          onChange={ ({ target }) => setRadioOption(target.value) }
+          data-testid="search-input"
+          type="text"
+          placeholder="Search recipes"
+          value={ filterInput }
+          onChange={ ({ target }) => setFilterInput(target.value) }
+          className="search-input"
         />
-        Ingredient
-      </label>
-      <label htmlFor="Name">
-        <input
-          id="Name"
-          type="radio"
-          name="radioFilter"
-          value="name"
-          data-testid="name-search-radio"
-          onChange={ ({ target }) => setRadioOption(target.value) }
-        />
-        Name
-      </label>
-      <label htmlFor="firstLetter">
-        <input
-          id="firstLetter"
-          type="radio"
-          name="radioFilter"
-          value="firstLetter"
-          data-testid="first-letter-search-radio"
-          onChange={ ({ target }) => setRadioOption(target.value) }
-        />
-        First letter
-      </label>
-      <button
-        type="button"
-        data-testid="exec-search-btn"
-        // onClick={ myLocation === '/meals' ? mealHandleChange : drinkHandleChange }
-        onClick={ myLocation === '/drinks' ? drinkHandleChange : mealHandleChange }
-      >
-        Search
-      </button>
+
+        <div className="flex items-center h-[68px]">
+          <label
+            htmlFor="Ingredient"
+            className="label"
+          >
+            <input
+              id="Ingredient"
+              type="radio"
+              name="radioFilter"
+              value="ingredient"
+              data-testid="ingredient-search-radio"
+              onChange={ ({ target }) => setRadioOption(target.value) }
+              className="mr-1"
+            />
+            Ingredient
+          </label>
+
+          <label
+            htmlFor="Name"
+            className="label"
+          >
+            <input
+              id="Name"
+              type="radio"
+              name="radioFilter"
+              value="name"
+              data-testid="name-search-radio"
+              onChange={ ({ target }) => setRadioOption(target.value) }
+              className="mr-1"
+            />
+            Name
+          </label>
+
+          <label
+            htmlFor="firstLetter"
+            className="text-white"
+          >
+            <input
+              id="firstLetter"
+              type="radio"
+              name="radioFilter"
+              value="firstLetter"
+              data-testid="first-letter-search-radio"
+              onChange={ ({ target }) => setRadioOption(target.value) }
+              className="mr-1"
+            />
+            First letter
+          </label>
+        </div>
+
+        <button
+          type="button"
+          data-testid="exec-search-btn"
+          onClick={ myLocation === '/drinks' ? drinkHandleChange : mealHandleChange }
+          className="btn-search bg-yellow "
+        >
+          Search
+        </button>
+      </div>
     </section>
   );
 }

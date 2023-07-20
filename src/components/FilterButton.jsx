@@ -7,7 +7,7 @@ import {
   getFilteredMeals,
   setLastClickedFilter,
 } from '../redux/actions';
-import '../styles/filterButton.css';
+import '../index.css';
 
 function FilterButton({ strCategory, currentPath }) {
   const dispatch = useDispatch();

@@ -3,7 +3,7 @@ import { useHistory } from 'react-router-dom';
 import validator from 'validator';
 import tomate from '../images/tomate.png';
 import logo from '../images/logo.svg';
-import '../styles/login.css';
+import '../index.css';
 
 function Login() {
   const [emailError, setEmailError] = useState('');
@@ -87,7 +87,7 @@ function Login() {
             <button
               type="submit"
               data-testid="login-submit-btn"
-              className="button-login"
+              className="button-login bg-yellow"
               disabled={ emailValid || password.length <= numberPass }
               onClick={ handleClick }
             >
