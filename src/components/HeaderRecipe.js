@@ -71,7 +71,7 @@ function HeaderRecipe() {
       { recipeDetails[0]
       && (
         <div>
-          <p>{ recipeDetails[0].strCategory }</p>
+          <p data-testid="category-header">{ recipeDetails[0].strCategory }</p>
         </div>
       )}
       <div>
@@ -85,7 +85,7 @@ function HeaderRecipe() {
         <button onClick={ handleFavorite }>
           <img
             src={ isFavorite ? blackHeartIcon : whiteHeartIcon }
-            alt="like"
+            alt={ isFavorite ? 'liked' : 'like' }
             width="26"
             height="26"
             data-testid="favorite-btn"

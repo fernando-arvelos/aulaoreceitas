@@ -4,13 +4,13 @@ import { screen, waitFor } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { act } from 'react-dom/test-utils';
 import renderWithRouterAndRedux from './helpers/renderWithRouterAndRedux';
-import Recipes from '../pages/Recipes';
 import fetch from '../../cypress/mocks/fetch';
+import App from '../App';
 
 describe('Testa a página de receitas', () => {
   it('testa se as 6 categorias de Meals são renderizadas', async () => {
     global.fetch = fetch;
-    renderWithRouterAndRedux(<Recipes />, '/meals');
+    renderWithRouterAndRedux(<App />, '/meals');
 
     const filterCards = await screen.findAllByTestId(/-category-filter/i);
     expect(filterCards.length).toBe(6);
@@ -46,7 +46,7 @@ describe('Testa a página de receitas', () => {
 
   it('testa se as 6 categorias de Drinks são renderizadas', async () => {
     global.fetch = fetch;
-    renderWithRouterAndRedux(<Recipes />, '/drinks');
+    renderWithRouterAndRedux(<App />, '/drinks');
 
     const filterCards = await screen.findAllByTestId(/-category-filter/i);
     expect(filterCards.length).toBe(6);
@@ -82,7 +82,7 @@ describe('Testa a página de receitas', () => {
 
   it('testa se as 12 primeiras receita de Meals são renderizadas', async () => {
     global.fetch = fetch;
-    const { history } = renderWithRouterAndRedux(<Recipes />, '/meals');
+    const { history } = renderWithRouterAndRedux(<App />, '/meals');
 
     const filterCards = await screen.findAllByTestId(/-category-filter/i);
     expect(filterCards.length).toBe(6);
@@ -100,7 +100,7 @@ describe('Testa a página de receitas', () => {
 
   it('testa se as 12 primeiras receitas de Drinks são renderizadas', async () => {
     global.fetch = fetch;
-    const { history } = renderWithRouterAndRedux(<Recipes />, '/drinks');
+    const { history } = renderWithRouterAndRedux(<App />, '/drinks');
 
     const filterCards = await screen.findAllByTestId(/-category-filter/i);
     expect(filterCards.length).toBe(6);
