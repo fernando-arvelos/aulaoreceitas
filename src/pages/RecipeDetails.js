@@ -19,7 +19,6 @@ function RecipeDetails() {
   const shareTextStatus = useSelector(
     (state) => state.recipeDetailsReducer.shareTextStatus,
   );
-
   const filterIngredientsAndMeasures = () => {
     if (recipeDetails.length > 0) {
       const filteredIngredients = Object.entries(recipeDetails[0]).filter(
@@ -40,25 +39,26 @@ function RecipeDetails() {
       setMeasures(filterMeasures);
     }
   };
-
   useEffect(() => {
     if (currentPath.includes('meals')) dispatch(getMealDetails(id));
     if (currentPath.includes('drinks')) dispatch(getDrinkDetails(id));
     const doneRecipes = JSON.parse(localStorage.getItem('doneRecipes'));
-    const verifyDoneRecipe = doneRecipes.some((recipe) => recipe.id === id);
-    setRecipeMade(verifyDoneRecipe);
+    if (doneRecipes) {
+      const verifyDoneRecipe = doneRecipes.some((recipe) => recipe.id === id);
+      setRecipeMade(verifyDoneRecipe);
+    }
     const inProgressRecipes = JSON.parse(localStorage.getItem('inProgressRecipes'));
-    const idsInProgress = Object.keys(inProgressRecipes[typeOfRecipe]);
-    const verifyIdsInProgress = idsInProgress.some(
-      (inProgressId) => id === inProgressId,
-    );
-    setRecipeInProgress(verifyIdsInProgress);
+    if (inProgressRecipes) {
+      const idsInProgress = Object.keys(inProgressRecipes[typeOfRecipe]);
+      const verifyIdsInProgress = idsInProgress.some(
+        (inProgressId) => id === inProgressId,
+      );
+      setRecipeInProgress(verifyIdsInProgress);
+    }
   }, []);
-
   useEffect(() => {
     filterIngredientsAndMeasures();
   }, [recipeDetails]);
-
   return (
     <div>
       <HeaderRecipe />
@@ -93,7 +93,6 @@ function RecipeDetails() {
               : 'Start Recipe'}
           </button>
         </Link>
-
       )}
       { shareTextStatus && (
         <p>Link copied!</p>
@@ -101,5 +100,4 @@ function RecipeDetails() {
     </div>
   );
 }
-
 export default RecipeDetails;
