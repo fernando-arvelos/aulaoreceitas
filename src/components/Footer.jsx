@@ -2,6 +2,7 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import drinkIcon from '../images/drinkIcon.svg';
 import mealIcon from '../images/mealIcon.svg';
+import '../styles/footer.css';
 
 function Footer() {
   return (
@@ -14,6 +15,7 @@ function Footer() {
           data-testid="drinks-bottom-btn"
           src={ drinkIcon }
           alt="drinks"
+          className="img"
         />
       </Link>
 
@@ -22,6 +24,7 @@ function Footer() {
           data-testid="meals-bottom-btn"
           src={ mealIcon }
           alt="meals"
+          className="img"
         />
       </Link>
     </footer>

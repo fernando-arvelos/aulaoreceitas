@@ -5,10 +5,3 @@
 * {
   font-family: 'Epilogue', sans-serif;
 }
-
-@layer components {
-  /* Footer */
-  .footer {
-    @apply flex justify-between items-center bg-red h-[52px] px-9 fixed bottom-0 w-full;
-  }
-}

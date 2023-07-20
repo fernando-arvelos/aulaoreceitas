@@ -1,0 +1,9 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer components {
+  .img-recipe-card {
+    @apply w-[134.85px];
+  }
+}

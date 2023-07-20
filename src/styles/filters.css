@@ -1,0 +1,9 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer components {
+  .img-filters {
+    @apply w-[45.28px] mx-1;
+  }
+}

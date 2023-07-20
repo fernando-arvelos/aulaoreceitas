@@ -8,7 +8,7 @@
   }
 
   .title-login {
-    @apply text-red text-center font-medium tracking-[3.3px] text-xl md:text-3xl italic uppercase mb-5;
+    @apply text-red text-center font-medium tracking-[3.3px] text-xl md:text-3xl uppercase mb-5;
   }
 
   .input-login {
