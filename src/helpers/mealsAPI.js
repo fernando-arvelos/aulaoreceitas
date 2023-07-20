@@ -24,3 +24,14 @@ export const fetchMealsCategoryFilter = async (category) => {
 
   return data.meals;
 };
+
+export const fetchMealDetails = async (id) => {
+  const response = await fetch(`https://www.themealdb.com/api/json/v1/1/lookup.php?i=${id}`);
+  const data = await response.json();
+
+  if (!response.ok) {
+    throw new Error('Erro na requisição dos detalhes do meal - API de meals!');
+  }
+
+  return data.meals;
+};
