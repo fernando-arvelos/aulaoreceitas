@@ -129,6 +129,7 @@ function FavoriteRecipes() {
                 ) : (
                   <p
                     data-testid={ `${index}-horizontal-top-text` }
+                    className="text-gray text-[9px] font-light"
                   >
                     {recipe.alcoholic ? 'Alcoholic'
                       : 'Non-Alcoholic'}
