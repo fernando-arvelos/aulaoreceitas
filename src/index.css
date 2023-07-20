@@ -101,4 +101,11 @@
   .container-search {
     @apply flex flex-col items-center bg-red w-[320px] sm:w-[338px] md:w-[500px] rounded-lg;
   }
+
+  /* ------------------------------------------------------------------------------- */
+
+  /* Favorite Recipes */
+  .list-favorite {
+    @apply flex w-[318px] h-[135px] bg-white rounded-[5px] border border-gray mb-4;
+  }
 }
