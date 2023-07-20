@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import shareIcon from '../images/shareIcon.svg';
+import Header from '../components/Header';
 
 function DoneRecipes() {
   const [doneRecipes, setDoneRecipes] = useState([]);
@@ -40,7 +41,9 @@ function DoneRecipes() {
     : doneRecipes;
 
   return (
-    <div>
+    <>
+      <Header pageTitle="Done Recipes" />
+
       <button data-testid="filter-by-all-btn" onClick={ handleClearFilter }>
         All
       </button>
@@ -96,9 +99,8 @@ function DoneRecipes() {
           </div>
         ))}
       </div>
-
       {copyMessage && <p>{copyMessage}</p>}
-    </div>
+    </>
   );
 }
 

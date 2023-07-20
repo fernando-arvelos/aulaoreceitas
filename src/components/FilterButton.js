@@ -7,6 +7,7 @@ import {
   getFilteredMeals,
   setLastClickedFilter,
 } from '../redux/actions';
+import '../index.css';
 
 function FilterButton({ strCategory, currentPath }) {
   const dispatch = useDispatch();
@@ -39,6 +40,7 @@ function FilterButton({ strCategory, currentPath }) {
       key={ strCategory }
       onClick={ () => handleCategoryFilter(strCategory) }
       data-testid={ `${strCategory}-category-filter` }
+      className="btn-filter"
     >
       {strCategory}
     </button>

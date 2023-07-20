@@ -9,23 +9,92 @@
 @layer components {
   /* Login */
   .bg-img {
-    @apply bg-cover min-h-screen bg-[url('./images/background.png')];
+    @apply bg-cover min-h-screen bg-red;
   }
 
   .title-login {
-    @apply text-[#41197F] text-center font-medium tracking-[3.3px] text-xl italic uppercase mb-5;
+    @apply text-red text-center font-medium tracking-[3.3px] text-xl md:text-3xl uppercase mb-5;
   }
 
   .input-login {
-    @apply border-[#41197F] border-[1px] rounded-md h-10 w-[276px] pl-4 focus:outline-none text-[#41197F] placeholder:text-[#42197f7f];
+    @apply border-gray border-[1px] rounded-md h-10 w-[276px] md:w-[350px] pl-4 focus:outline-none text-gray placeholder:text-gray;
   }
 
   .button-login {
-    @apply bg-[#FCC436] text-white rounded-md h-10 w-[276px] text-center font-bold tracking-[0.42px] text-sm uppercase disabled:bg-gray-500;
+    @apply  text-gray rounded-md h-10 w-[276px] md:w-[350px] text-center font-bold tracking-[0.42px] text-sm uppercase disabled:bg-gray disabled:text-white;
   }
+
+  .login-container {
+    @apply flex flex-col items-center bg-white pt-24 sm:pt-28 md:pt-44 w-screen h-screen mt-[-100px] md:mt-[-175px]
+  }
+
+  /* ------------------------------------------------------------------------------- */
+
+  /* Meals */
+  .flex-col-center {
+    @apply flex flex-col items-center;
+  }
+
+  .title-meals {
+    @apply text-red text-xl md:text-3xl font-bold tracking-widest ;
+  }
+
+  /* ------------------------------------------------------------------------------- */
+
+  /* filterButton */
+  .btn-filter {
+    @apply mx-1 bg-red text-[9px] sm:text-xs md:text-lg text-yellow font-bold px-2 py-1 rounded;
+  }
+
+  /* ------------------------------------------------------------------------------- */
 
   /* Footer */
   .footer {
-    @apply flex justify-between items-center bg-[#41197F] h-[52px] px-9 fixed bottom-0 w-full;
+    @apply flex justify-between items-center bg-red h-[52px] px-9 md:px-16 fixed bottom-0 w-full;
+  }
+
+  /* ------------------------------------------------------------------------------- */
+
+  /* header */
+  .container-header {
+    @apply flex justify-between items-center w-screen h-[52px] px-9 md:px-16 bg-yellow;
+  }
+
+  .chef-logo{
+    @apply w-12 mr-2;
+  }
+
+  .menu-logo {
+    @apply w-28 sm:w-36;
+  }
+
+  .title-meals {
+    @apply text-red text-xl md:text-3xl font-bold tracking-widest mt-4 md:mt-6;
+  }
+
+  /* ------------------------------------------------------------------------------- */
+
+  /* RecipeCard */
+  .img-recipe-card {
+    @apply w-[134.85px] md:w-[160px];
+  }
+
+  /* ------------------------------------------------------------------------------- */
+  
+  /* SearchBar */
+  .label {
+    @apply text-white mr-5;
+  }
+
+  .btn-search {
+    @apply w-[275px] rounded-[5px] mb-2 text-gray text-sm py-2 font-bold uppercase tracking-tight;
+  }
+
+  .search-input {
+    @apply w-[320px] sm:w-[338px] md:w-[500px] h-10 border border-gray rounded placeholder:text-gray pl-4
+  }
+
+  .container-search {
+    @apply flex flex-col items-center bg-red w-[320px] sm:w-[338px] md:w-[500px] rounded-lg;
   }
 }

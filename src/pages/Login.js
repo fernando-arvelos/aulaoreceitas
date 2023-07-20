@@ -2,7 +2,8 @@ import React, { useState } from 'react';
 import { useHistory } from 'react-router-dom';
 import validator from 'validator';
 import tomate from '../images/tomate.png';
-import logo from '../images/logoRecipesApp.png';
+import logo from '../images/logo.svg';
+import '../index.css';
 
 function Login() {
   const [emailError, setEmailError] = useState('');
@@ -42,15 +43,19 @@ function Login() {
   return (
     <main className="flex flex-col items-center h-screen bg-img">
 
-      <div className="mt-20">
-        <img src={ logo } alt="logo" className="w-[198px]" />
+      <div className="flex flex-col items-center z-[1]">
+        <div className="mt-14">
+          <img src={ logo } alt="logo" className="w-[200px] md:w-[250px]" />
+        </div>
+
+        <div className="md:flex md:flex-start md:w-screen">
+          <div className="my-1">
+            <img src={ tomate } alt="logo" className="w-[458px] md:w-[600px]" />
+          </div>
+        </div>
       </div>
 
-      <div className="my-1">
-        <img src={ tomate } alt="logo" className="w-[458px]" />
-      </div>
-
-      <div className="flex flex-col mt-1">
+      <div className="login-container">
 
         <h1 className="title-login">
           Login
@@ -66,7 +71,7 @@ function Login() {
               onChange={ (e) => validateEmail(e) }
             />
             <p
-              className="text-red-500 text-xs font-semibold italic"
+              className="text-red text-xs font-semibold italic"
             >
               {emailError}
             </p>
@@ -82,7 +87,7 @@ function Login() {
             <button
               type="submit"
               data-testid="login-submit-btn"
-              className="button-login"
+              className="button-login bg-yellow"
               disabled={ emailValid || password.length <= numberPass }
               onClick={ handleClick }
             >

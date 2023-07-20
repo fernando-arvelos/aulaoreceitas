@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import shareIcon from '../images/shareIcon.svg';
 import blackHeartIcon from '../images/blackHeartIcon.svg';
+import Header from '../components/Header';
 
 function FavoriteRecipes() {
   const [favoriteRecipes, setFavoriteRecipes] = useState([]);
@@ -55,7 +56,8 @@ function FavoriteRecipes() {
   };
 
   return (
-    <div>
+    <>
+      <Header pageTitle="Favorite Recipes" />
       <h1>Favorite Recipes</h1>
 
       <button
@@ -123,7 +125,7 @@ function FavoriteRecipes() {
         </div>
       ))}
       {copyMessage && <p>{copyMessage}</p>}
-    </div>
+    </>
   );
 }
 

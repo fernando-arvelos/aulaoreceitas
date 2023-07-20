@@ -6,6 +6,7 @@ import Group from '../images/Group.svg';
 import favorite from '../images/favorite.svg';
 import logout from '../images/logout.svg';
 import Footer from '../components/Footer';
+import Header from '../components/Header';
 
 function Profile() {
   const [userEmail, setUserEmail] = useState('');
@@ -44,6 +45,7 @@ function Profile() {
     <main
       className="flex flex-col justify-center h-screen"
     >
+      <Header pageTitle="Profile" />
       <div className="flex flex-col items-center shadow-lg p-10">
         <img src={ Perfil } alt="Perfil" className="w-7 h-7 mt-8" />
 
