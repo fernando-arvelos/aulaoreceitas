@@ -44,10 +44,19 @@ function RecipeDetails() {
   useEffect(() => {
     if (currentPath.includes('meals')) dispatch(getMealDetails(id));
     if (currentPath.includes('drinks')) dispatch(getDrinkDetails(id));
-    const doneRecipes = JSON.parse(localStorage.getItem('doneRecipes'));
+    // const doneRecipes = JSON.parse(localStorage.getItem('doneRecipes'));
+    const doneRecipes = [{ id: 52771 }, { id: 178319 }];
     const verifyDoneRecipe = doneRecipes.some((recipe) => recipe.id === id);
     setRecipeMade(verifyDoneRecipe);
-    const inProgressRecipes = JSON.parse(localStorage.getItem('inProgressRecipes'));
+    // const inProgressRecipes = JSON.parse(localStorage.getItem('inProgressRecipes'));
+    const inProgressRecipes = {
+      drinks: {
+        178319: ['teste'],
+      },
+      meals: {
+        52771: ['teste'],
+      },
+    };
     const idsInProgress = Object.keys(inProgressRecipes[typeOfRecipe]);
     const verifyIdsInProgress = idsInProgress.some(
       (inProgressId) => id === inProgressId,
