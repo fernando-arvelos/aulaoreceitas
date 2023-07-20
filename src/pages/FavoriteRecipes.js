@@ -62,7 +62,7 @@ function FavoriteRecipes() {
       <Header pageTitle="Favorite Recipes" />
       <div className="flex flex-col items-center">
 
-        <img className="mb-2" src="/img/favoriteRecipes.svg" alt="favorite" />
+        <img className="mb-2 mt-5" src="/img/favoriteRecipes.svg" alt="favorite" />
         <h1
           className="text-red text-xl font-black uppercase tracking-widest mb-9"
         >
@@ -129,6 +129,7 @@ function FavoriteRecipes() {
                 ) : (
                   <p
                     data-testid={ `${index}-horizontal-top-text` }
+                    className="text-gray text-[9px] font-light"
                   >
                     {recipe.alcoholic ? 'Alcoholic'
                       : 'Non-Alcoholic'}
