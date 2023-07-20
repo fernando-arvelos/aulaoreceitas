@@ -26,3 +26,14 @@ export const fetchDrinksCategoryFilter = async (category) => {
 
   return data.drinks;
 };
+
+export const fetchDrinkDetails = async (id) => {
+  const response = await fetch(`https://www.thecocktaildb.com/api/json/v1/1/lookup.php?i=${id}`);
+  const data = await response.json();
+
+  if (!response.ok) {
+    throw new Error('Erro na requisição dos detalhes do drink - API de drinks!');
+  }
+
+  return data.drinks;
+};

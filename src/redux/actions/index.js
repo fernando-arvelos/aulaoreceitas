@@ -2,11 +2,13 @@ import {
   fetchDrinks,
   fetchDrinkCategories,
   fetchDrinksCategoryFilter,
+  fetchDrinkDetails,
 } from '../../helpers/drinksAPI';
 import {
   fetchMeals,
   fetchMealCategories,
   fetchMealsCategoryFilter,
+  fetchMealDetails,
 } from '../../helpers/mealsAPI';
 
 // ACTIONS TYPES
@@ -19,6 +21,9 @@ export const FETCH_FILTERED_MEALS_SUCCESS = 'FETCH_FILTERED_MEALS_SUCCESS';
 export const FETCH_FILTERED_DRINKS_SUCCESS = 'FETCH_FILTERED_DRINKS_SUCCESS ';
 export const CHANGE_FILTER_STATUS = 'CHANGE_FILTER_STATUS';
 export const SET_LAST_CLICKED_FILTER = 'SET_LAST_CLICKED_FILTER';
+export const FETCH_DRINK_DETAILS_SUCCESS = 'FETCH_DRINK_DETAILS_SUCCESS';
+export const FETCH_MEAL_DETAILS_SUCCESS = 'FETCH_MEAL_DETAILS_SUCCESS';
+export const SET_SHARE_TEXT_STATUS = 'SET_SHARE_TEXT_STATUS';
 
 // ACTIONS CREATORS
 export const fetchFailure = (error) => ({
@@ -130,4 +135,38 @@ export const changeFilterStatus = (status) => ({
 export const setLastClickedFilter = (filter) => ({
   type: SET_LAST_CLICKED_FILTER,
   payload: filter,
+});
+
+export const fetchMealDetailsSucess = (mealDetails) => ({
+  type: FETCH_MEAL_DETAILS_SUCCESS,
+  payload: mealDetails,
+});
+
+export const fetchDrinkDetailsSucess = (drinkDetails) => ({
+  type: FETCH_DRINK_DETAILS_SUCCESS,
+  payload: drinkDetails,
+});
+
+export const getMealDetails = (id) => async (dispatch) => {
+  try {
+    const mealDetails = await fetchMealDetails(id);
+    dispatch(fetchDrinkDetailsSucess(mealDetails));
+  } catch (error) {
+    dispatch(fetchFailure(error.message));
+  }
+};
+
+export const getDrinkDetails = (id) => async (dispatch) => {
+  try {
+    const drinkDetails = await fetchDrinkDetails(id);
+
+    dispatch(fetchDrinkDetailsSucess(drinkDetails));
+  } catch (error) {
+    dispatch(fetchFailure(error.message));
+  }
+};
+
+export const setShareTextStatus = (status) => ({
+  type: SET_SHARE_TEXT_STATUS,
+  payload: status,
 });
