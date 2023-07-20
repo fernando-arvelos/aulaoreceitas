@@ -3,6 +3,8 @@ import { Link } from 'react-router-dom';
 import shareIcon from '../images/shareIcon.svg';
 import blackHeartIcon from '../images/blackHeartIcon.svg';
 import Header from '../components/Header';
+import '../index.css';
+import Footer from '../components/Footer';
 
 function FavoriteRecipes() {
   const [favoriteRecipes, setFavoriteRecipes] = useState([]);
@@ -56,76 +58,106 @@ function FavoriteRecipes() {
   };
 
   return (
-    <>
+    <div>
       <Header pageTitle="Favorite Recipes" />
-      <h1>Favorite Recipes</h1>
+      <div className="flex flex-col items-center">
 
-      <button
-        data-testid="filter-by-all-btn"
-        onClick={ () => handleFilterClick('all') }
-      >
-        All
+        <img className="mb-2" src="/img/favoriteRecipes.svg" alt="favorite" />
+        <h1
+          className="text-red text-xl font-black uppercase tracking-widest mb-9"
+        >
+          Favorite Recipes
+        </h1>
 
-      </button>
-      <button
-        data-testid="filter-by-meal-btn"
-        onClick={ () => handleFilterClick('meals') }
-      >
-        Meals
-
-      </button>
-      <button
-        data-testid="filter-by-drink-btn"
-        onClick={ () => handleFilterClick('drinks') }
-      >
-        Drinks
-
-      </button>
-
-      {filteredRecipes.map((recipe, index) => (
-        <div key={ index }>
-          <Link to={ `/meals/${recipe.id}` }>
-            <img
-              src={ recipe.image }
-              alt={ `${recipe.name} recipe` }
-              data-testid={ `${index}-horizontal-image` }
-            />
-          </Link>
-          {recipe.type === 'meal' ? (
-            <p
-              data-testid={ `${index}-horizontal-top-text` }
-            >
-              {`${recipe.nationality} - ${recipe.category}`}
-            </p>
-          ) : (
-            <p
-              data-testid={ `${index}-horizontal-top-text` }
-            >
-              {recipe.alcoholic ? 'Alcoholic'
-                : 'Non-Alcoholic'}
-            </p>
-          )}
-          <Link to={ `/drinks/${recipe.id}` }>
-            <h3 data-testid={ `${index}-horizontal-name` }>{recipe.name}</h3>
-          </Link>
+        <div className="flex mb-6">
           <button
-            src={ shareIcon }
-            data-testid={ `${index}-horizontal-share-btn` }
-            onClick={ copyUrlToClipboard }
+            data-testid="filter-by-all-btn"
+            onClick={ () => handleFilterClick('all') }
+            className="btn-filter"
           >
-            <img src={ shareIcon } alt="Share" />
+            All
+
           </button>
           <button
-            src={ blackHeartIcon }
-            data-testid={ `${index}-horizontal-favorite-btn` }
-            onClick={ () => handleUnfavoriteClick(recipe.id) }
+            data-testid="filter-by-meal-btn"
+            onClick={ () => handleFilterClick('meals') }
+            className="btn-filter"
           >
-            <img src={ blackHeartIcon } alt="Unfavorite" />
+            Meals
+
+          </button>
+          <button
+            data-testid="filter-by-drink-btn"
+            onClick={ () => handleFilterClick('drinks') }
+            className="btn-filter"
+          >
+            Drinks
+
           </button>
         </div>
-      ))}
+
+        {filteredRecipes.map((recipe, index) => (
+          <div
+            key={ index }
+            className="flex w-[318px] h-[135px] bg-white rounded-[5px] border border-gray mb-4"
+          >
+            <Link to={ `/meals/${recipe.id}` }>
+              <img
+                src={ recipe.image }
+                alt={ `${recipe.name} recipe` }
+                data-testid={ `${index}-horizontal-image` }
+                className="w-[164px] h-[135px] rounded-tl-[5px] rounded-bl-[5px] z-[-1]"
+              />
+            </Link>
+            <div className="ml-5">
+              <div className="mt-8">
+                <Link to={ `/drinks/${recipe.id}` }>
+                  <h3
+                    data-testid={ `${index}-horizontal-name` }
+                    className="w-[86px] text-gray text-xl font-bold"
+                  >
+                    {recipe.name}
+                  </h3>
+                </Link>
+                {recipe.type === 'meal' ? (
+                  <p
+                    data-testid={ `${index}-horizontal-top-text` }
+                    className="text-gray text-[9px] font-light"
+                  >
+                    {`${recipe.nationality} - ${recipe.category}`}
+                  </p>
+                ) : (
+                  <p
+                    data-testid={ `${index}-horizontal-top-text` }
+                  >
+                    {recipe.alcoholic ? 'Alcoholic'
+                      : 'Non-Alcoholic'}
+                  </p>
+                )}
+              </div>
+              <div className="mt-4">
+                <button
+                  src={ shareIcon }
+                  data-testid={ `${index}-horizontal-share-btn` }
+                  onClick={ copyUrlToClipboard }
+                >
+                  <img src={ shareIcon } height="22" width="22" alt="Share" />
+                </button>
+                <button
+                  src={ blackHeartIcon }
+                  data-testid={ `${index}-horizontal-favorite-btn` }
+                  onClick={ () => handleUnfavoriteClick(recipe.id) }
+                >
+                  <img src={ blackHeartIcon } height="22" width="22" alt="Unfavorite" />
+                </button>
+              </div>
+            </div>
+          </div>
+        ))}
+      </div>
       {copyMessage && <p>{copyMessage}</p>}
-    </>
+      <Footer />
+    </div>
   );
 }
 
