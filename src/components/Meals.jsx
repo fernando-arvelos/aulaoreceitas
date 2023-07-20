@@ -4,6 +4,8 @@ import { getMealCategories, getMealRecipes } from '../redux/actions';
 import RecipeCard from './RecipeCard';
 import Filters from './Filters';
 import Header from './Header';
+import '../styles/meals.css';
+import mealIcon from '../images/mealIcon.svg';
 
 function Meals() {
   const dispatch = useDispatch();
@@ -17,44 +19,56 @@ function Meals() {
   }, [dispatch]);
 
   return (
-    <div>
-      <Header pageTitle="Meals" />
+    <main className="flex-col-center px-3">
       <div>
-        <Filters />
+        <Header pageTitle="Meals" />
+
+        <div className="flex-col-center pt-8 mb-5">
+          <img src={ mealIcon } alt="meal icon" />
+        </div>
+        <h1 className="title-meals">MEALS</h1>
       </div>
+
       <div>
-        {
-          filterStatus
-            ? (
-              filteredMeals.map((meal, index) => {
-                const { strMealThumb, strMeal, idMeal } = meal;
-                return (
-                  <RecipeCard
-                    key={ `${strMeal}-${index}` }
-                    recipeImage={ strMealThumb }
-                    recipeName={ strMeal }
-                    index={ index }
-                    recipeId={ idMeal }
-                  />
-                );
-              })
-            ) : (
-              meals.map((meal, index) => {
-                const { strMealThumb, strMeal, idMeal } = meal;
-                return (
-                  <RecipeCard
-                    key={ `${strMeal}-${index}` }
-                    recipeImage={ strMealThumb }
-                    recipeName={ strMeal }
-                    index={ index }
-                    recipeId={ idMeal }
-                  />
-                );
-              })
-            )
-        }
+        <div className="flex-col-center mb-5">
+          <div>
+            <Filters />
+          </div>
+        </div>
+        <div className="flex justify-center flex-wrap mb-14">
+          {
+            filterStatus
+              ? (
+                filteredMeals.map((meal, index) => {
+                  const { strMealThumb, strMeal, idMeal } = meal;
+                  return (
+                    <RecipeCard
+                      key={ `${strMeal}-${index}` }
+                      recipeImage={ strMealThumb }
+                      recipeName={ strMeal }
+                      index={ index }
+                      recipeId={ idMeal }
+                    />
+                  );
+                })
+              ) : (
+                meals.map((meal, index) => {
+                  const { strMealThumb, strMeal, idMeal } = meal;
+                  return (
+                    <RecipeCard
+                      key={ `${strMeal}-${index}` }
+                      recipeImage={ strMealThumb }
+                      recipeName={ strMeal }
+                      index={ index }
+                      recipeId={ idMeal }
+                    />
+                  );
+                })
+              )
+          }
+        </div>
       </div>
-    </div>
+    </main>
   );
 }
 

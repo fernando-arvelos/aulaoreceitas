@@ -1,0 +1,9 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer components {
+  .footer {
+    @apply flex justify-between items-center bg-red h-[52px] px-9 md:px-16 fixed bottom-0 w-full;
+  }
+}

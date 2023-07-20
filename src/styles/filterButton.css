@@ -1,0 +1,9 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer components {
+  .btn-filter {
+    @apply mx-1 bg-red text-[9px] sm:text-xs md:text-lg text-yellow font-bold px-2 py-1 rounded;
+  }
+}
