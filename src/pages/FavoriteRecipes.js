@@ -60,9 +60,9 @@ function FavoriteRecipes() {
   return (
     <div>
       <Header pageTitle="Favorite Recipes" />
-      <div className="flex flex-col items-center">
+      <div className="flex flex-col items-center mt-10">
 
-        <img className="mb-2 mt-5" src="/img/favoriteRecipes.svg" alt="favorite" />
+        <img className="w-14 mb-3" src="/img/favoriteRecipes.svg" alt="favorite" />
         <h1
           className="text-red text-xl font-black uppercase tracking-widest mb-9"
         >
@@ -73,7 +73,7 @@ function FavoriteRecipes() {
           <button
             data-testid="filter-by-all-btn"
             onClick={ () => handleFilterClick('all') }
-            className="btn-filter"
+            className="btn-filter text-base"
           >
             All
 
@@ -81,7 +81,7 @@ function FavoriteRecipes() {
           <button
             data-testid="filter-by-meal-btn"
             onClick={ () => handleFilterClick('meals') }
-            className="btn-filter"
+            className="btn-filter text-base"
           >
             Meals
 
@@ -89,7 +89,7 @@ function FavoriteRecipes() {
           <button
             data-testid="filter-by-drink-btn"
             onClick={ () => handleFilterClick('drinks') }
-            className="btn-filter"
+            className="btn-filter text-base"
           >
             Drinks
 
@@ -99,7 +99,7 @@ function FavoriteRecipes() {
         {filteredRecipes.map((recipe, index) => (
           <div
             key={ index }
-            className="flex w-[318px] h-[135px] bg-white rounded-[5px] border border-gray mb-4"
+            className="list-favorite"
           >
             <Link to={ `/meals/${recipe.id}` }>
               <img

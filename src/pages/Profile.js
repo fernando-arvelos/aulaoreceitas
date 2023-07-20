@@ -43,9 +43,11 @@ function Profile() {
 
   return (
     <main
-      className="flex flex-col justify-center h-screen"
+      className="flex flex-col items-center h-screen"
     >
-      <Header pageTitle="Profile" />
+      <div>
+        <Header pageTitle="Profile" />
+      </div>
       <div className="flex flex-col items-center shadow-lg p-10">
         <img src={ Perfil } alt="Perfil" className="w-7 h-7 mt-8" />
 
