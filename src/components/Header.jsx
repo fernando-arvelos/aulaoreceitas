@@ -12,6 +12,7 @@ function Header() {
   const [renderSearchInput, setRenderSearchInput] = useState(false);
 
   const location = useLocation();
+  const [title] = useState(location.pathname.split('/')[1]);
 
   useEffect(() => {
     switch (location.pathname) {
@@ -78,10 +79,14 @@ function Header() {
         </div>
       </div>
 
-      <div className="flex-col-center mt-9 mb-6">
-        <img src={ mealIcon } alt="meal icon" className="w-14 md:w-20" />
-        <h1 className="title-meals">MEALS</h1>
-      </div>
+      {
+        (title === 'meals' || title === 'drinks') && (
+          <div className="flex-col-center mt-9 mb-6">
+            <img src={ mealIcon } alt="meal icon" className="w-14 md:w-20" />
+            <h1 className="title-meals">{title}</h1>
+          </div>
+        )
+      }
 
       { renderSearchInput && (
         <SearchBar />

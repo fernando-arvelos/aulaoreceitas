@@ -14,7 +14,7 @@ function RecipeCard({ recipeImage, recipeName, index, recipeId }) {
   };
 
   return (
-    <div className="flex justify-center m-2 sm:m-4 rounded-[5px] border border-gray">
+    <div className="container-recipe-card">
       <button
         data-testid={ `${index}-recipe-card` }
         onClick={ () => handleDetailPage(recipeId) }

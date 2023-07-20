@@ -36,7 +36,7 @@
   }
 
   .title-meals {
-    @apply text-red text-xl md:text-3xl font-bold tracking-widest ;
+    @apply text-red text-xl md:text-3xl font-bold tracking-widest uppercase ;
   }
 
   /* ------------------------------------------------------------------------------- */
@@ -77,6 +77,10 @@
   /* RecipeCard */
   .img-recipe-card {
     @apply w-[134.85px] md:w-[160px];
+  }
+
+  .container-recipe-card {
+    @apply flex justify-center m-2 sm:m-4 rounded-[5px] border border-gray  w-[134.85px] md:w-[160px];
   }
 
   /* ------------------------------------------------------------------------------- */
